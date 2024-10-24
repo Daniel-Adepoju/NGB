@@ -5,7 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  outline: 1px solid rgb(217, 0, 0);
+  // outline: 1px solid rgb(158, 1, 1);
 }
 
 @mixin flex($direction, $align: center, $justify: flex-start) {
@@ -23,32 +23,41 @@
    @return map-get($map: $color, $key: $val )
   };
 
-//    @function font($val) {
-//     @return map-get($map: $font, $key: $val )
-//    };
+   @function font($val) {
+    @return map-get($map: $font, $key: $val )
+   };
 
 body {
     @include flex(column,flex-start,flex-start);
     min-width: 100%;
     min-height: 100vh;
-    // background-color: color('backgroundLight');
     font-family: font('text');
-    // background: rgb(0,255,153);
-// background: linear-gradient(40deg, rgb(26, 177, 117) 0%, rgba(2, 88, 73, 0.911) 50%, rgba(14, 188, 133, 0.842) 100%);
+    background-color: rgb(249, 249, 249);
 }
 
-img {
- background-color: white;
-}
 
+.main {
+    // @include flex(column,flex-start,flex-start);
+    @extend body;
+    min-width: 99%;
+    min-height: 100vh;
+    margin-inline:  auto;
+    background-color: color('backgroundLight');
+    box-shadow: 2px 2px 2px 2px rgb(200, 199, 199);
+    font-family: font('text');
+    font-size: 23px;
+    border-radius: 5%;
+}
  
-
  nav {
-  background-color: black;
+  z-index: 100;
+  position: fixed;
+  background-color: color('primaryGreen');
   color: #ffffff;
   width: 100%;
   margin:  0 auto;
   text-align: center;
+  padding: 0 2px;
    @include flex(row,center,space-between);
   .logo {
     font-size: 50px;
@@ -56,6 +65,7 @@ img {
   }
  a {
     display: block;
+     text-decoration: none;
     color: white;
   }
   ul {
@@ -64,23 +74,43 @@ img {
     li {
       list-style: none;
       margin-left: 20px;
+      &.logAndSign {
+        cursor: pointer;
+        background-color: green;
+        padding: 5px 2em;
+        border-radius:  4px;
+        }
     }
     img {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       cursor: pointer;
+      margin-inline: auto;
     }
   }
  }
 
+
+.homepage {
+  margin-top:  70px;
+
+}
+
+.user-title {
+  text-align: center;
+  font-family: font('title');
+  font-size: 25px;
+  color: color('primaryGreen');
+  margin: 100px auto;
+}
 .user-form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     gap: 5px;
-    margin-top: 70px;
+    margin-top: -70px;
     margin-inline: auto;
     min-width: 60%;
     padding: 20px;
@@ -90,6 +120,9 @@ img {
     .user-label {
         color: grey;
         font-weight: bold;
+        font-size: 15px;
+        align-self: flex-start;
+        margin-bottom: -6px;
     }
     input {
      @include transition(200ms,ease-in );
@@ -107,30 +140,269 @@ img {
       }
     }
     .user-btn {
+        color: white;
         margin-top: 10px;
-        padding: 7px 2px;
+        padding: 8px 2px;
         width: 50%;
         border:none;
         border-radius: 3px;
-        background-color: color('secondaryGreen');
+        background-color: green;
         cursor: pointer;
         @include transition(300ms, ease-in );
         
          &:hover {
-    background-color: rgb(26, 166, 26);
+       background-color: rgb(26, 166, 26);
          }
     }
-  
     }
+    .register-prompt {
+      font-size: 18px;
+      margin-inline: auto;
+ a {
+  margin-left: 5px;
+  color: green;
+  text-decoration: underline;
+ }    }
 
 
+.profile-container {
+  @include flex(column,center,center);
+  @include transition(300ms, ease-in);
+  width: 90%;
+  margin: 100px auto;
+  @media (min-width: 700px) {
+@include flex(row, center, flex-start);
+  }
+  section {
+    @include flex(column, center , flex-start);
+    border-bottom: 1px solid color('primaryGreen');
+    width: 100%;
+    @media (min-width: 700px) {
+        border-bottom:none;
+    }
+  }
+  .profile-picture {
+    position: relative;
+    border-radius: 50%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    & img {
+      border-radius: 50%;
+      margin-inline: auto;
+      outline: 2px solid color('primaryGreen');
+    }
+   .edit-btn {
+   @include transition(300ms, ease-out );
+  cursor: pointer;
+  position: absolute;
+  width: 40px;
+  top: 60%;
+  left: 70%;
+  margin-inline: auto;
 
+  &:hover { 
+    @include transition(300ms, ease-out);
+    transform: scale(0.97);
+  }
+  img {
+    width: 100%;
+    margin-inline: auto;
+    border-radius: 0%;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+  }
+  }
+}
+.profile-details {
+  @include flex(column,center,flex-start);
+  font-size: 15px;
+  font-weight: bold;
+  gap: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-inline: auto;
+  img {
+    width: 40px;
+    cursor: pointer;
+    @include transition(300ms, ease-out );
+  &:hover { 
+    @include transition(300ms, ease-out);
+    transform: scale(0.97);
+  }
+  }
+  input {
+    @include transition(200ms,ease-in );
+    border: none;
+    outline: 1px solid green;
+    padding: 10px;
+    width: 100%;
+    &::placeholder {
+      font-weight: bold;
+    }
+  }
+  & label {
+    @include flex(row,center,space-between);
+    gap: 10px;
+  }
+  .edit-choice {
+    @include flex(row-reverse,center,space-evenly);
+    // outline: 2px solid yellow;
+    width: 100%;
+    margin-bottom:  -14px;
+  }
+
+}
+}
+
+
+.card-container{
+  @include flex(column,flex-start,center);
+  gap: 8px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-inline: auto;
+  width: 90%;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 2px 2px 1px 1px rgb(79, 78, 78,0.1);
+  white-space: pre-wrap;
+  overflow: hidden;
+  .head {
+    @include flex(row,center,flex-start);
+    gap: 12px;
+    background-color: color('secondaryGreen');
+    width: 100%;
+    padding: 6px;
+    border-radius: 6px 6px 0 0;
+    .creator-pic {
+      border: 2px solid red;
+      border-radius: 50%;
+      width: 50px;
+      img {
+        width: 100%;
+      }
+    }
+    div {
+      @include flex(column,flex-start,flex-start);
+      gap: 2px;
+      .creator-name {
+     font-size: 20px;
+      }
+      .date-created {
+        font-size: 15px;
+        font-weight: bold;
+        opacity: 50%;
+      }
+    }
+  }
+  .body{
+    width: 100%;
+    .post-picture {
+      width: 95%;
+      margin-inline:auto;
+      img{
+      object-fit: contain;
+      width: 100%;
+      height: auto;
+      }
+    }
+  .post-content {
+    width: 96%;
+    min-height: 10%;
+    margin-inline: auto;
+    margin-top: 10px;
+    font-size: 18px;
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 20px;
+    border-bottom: 1px solid color('secondaryGreen');
+  }
+  .post-btn {
+    @include flex(row,center,flex-end);
+    gap: 10px;
+    width: 96%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    img {
+      width: 35px;
+      cursor: pointer;
+      @include transition(300ms,ease-out);
+      &:hover {
+        transform: scale(1.05);
+        @include transition(300ms, ease-in);
+      }
+    }
+  }
+}
+  @media (min-width: 700px) {
+  }
+}
+
+
+.create-portal {
+  border: 2px solid red;
+  @include flex(column, flex-start, flex-start);
+  width: 100%;
+  margin: 80px auto;
+  padding: 2px 6px;
+  h3 {
+    opacity: 80%;
+    color: rgb(30, 156, 17);
+  }
+  .postForm {
+    @include flex(column,center, flex-start);
+    width: 100%;
+    margin: 20px auto;
+    label {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    textarea {
+      font-size: 20px;
+      border: none;
+      outline: 1px solid green;
+      padding: 10px;
+      width:  400px;
+      height: 300px;
+      border-radius: 3px;
+       resize: none;
+      &:hover {
+        background-color: #b5dab5;
+      }
+    }
+   
+    button {
+      @include transition(300ms, ease-in );
+      color: white;
+      margin-top: 10px;
+      padding: 8px 2px;
+      width: 50%;
+      border: none;
+      border-radius: 3px;
+      background-color: green;
+      cursor: pointer;
+      &:hover {
+        @include transition(300ms, ease-in );
+  }
+}
+  }
+}
+
+
+.error {
+  background-color: darkred;
+  width: 90%;
+  min-height: 100vh;
+  margin: 80px auto;
+}
 .loader {
+  margin:  100px auto;
   width: 50px;
   padding: 8px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #ffffff;
+  background: rgb(0, 126, 0);
   --_m: 
     conic-gradient(#0000 10%,#000),
     linear-gradient(#000 0 0) content-box;

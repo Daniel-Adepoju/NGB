@@ -5,27 +5,28 @@ import { signal, effect } from '@preact/signals-react'
 import { redirect, useSearchParams } from 'next/navigation';
 import Loading from '../loading';
 import {useUser,useProviders} from '../utils/user';
+import Card from './Card'
 
-export default function Home() {
+export default function HomePage() {
   useSignals()
 
   const searchParams = useSearchParams()
   const goToLogin = searchParams.get('redirect')
-  const session = useUser()
+  const {session} = useUser()
   const providers = useProviders()
 
 
  if (goToLogin) {
   redirect('/login')
  }
-//  console.log(session)
 
- if (session === null || !providers) {
+ if (!providers || goToLogin) {
   return <Loading />
  }
    return (
-    <div>
-  Welcome to NGB {providers ? session?.user?.name : 'no user'}
+    <div className="homepage">
+  <div className="heading">Welcome To NGB </div>
+  <Card /> 
     </div>
   );
 }

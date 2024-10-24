@@ -19,7 +19,9 @@ export default function RootLayout({children}) {
           <AuthProvider>
             <User>
             <Nav/>
-              {children}
+            <section className="main">
+               {children}
+            </section>
               </User>
           </AuthProvider>
         </ReactQueryProvider>

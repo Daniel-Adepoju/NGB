@@ -8,7 +8,8 @@ export const POST = async (req, res) => {
     await connectToDB()
     const {username,email, userPassword} = await req.json();
     const password = await hash(userPassword, 10);
-    const newUser = {username, email, password}
+    const profilePic = null
+    const newUser = {username, email, profilePic,password}
     const user = new User(newUser)
     await user.save()
     return new Response(JSON.stringify([newUser]),{status:201})

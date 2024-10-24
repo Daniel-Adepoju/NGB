@@ -3,13 +3,13 @@
 import { signal, effect} from "@preact/signals-react"
 import { useSignals } from "@preact/signals-react/runtime";
 import { useRouter, usePathname, redirect } from "next/navigation";
-import axios from 'axios';
+import Link from "next/link";
+import {data} from '../utils/axiosUrl'
 import { useMutation } from "@tanstack/react-query";
 import { signIn, signOut } from "next-auth/react";
 
-const data = axios.create({
-  baseURL: process.env.BASE_URL
-})
+export const formType = signal('')
+export const isSubmitting  = signal(false)
 
 export const userDeets = {
     username: signal(''),
@@ -31,7 +31,7 @@ const Form = () => {
 
   const registerUser =  async(newUser) => {
     try {
-      const response = await data.post('api/auth/register', newUser)
+      const response = await data.value.post('api/auth/register', newUser)
       if(!response.error) {
         router.push('/?redirect=login')
         router.refresh();
@@ -45,10 +45,14 @@ const Form = () => {
   const registerMutation = useMutation({
     mutationKey: 'register',
     mutationFn: registerUser,
+    onSuccess: () => {
+      isSubmitting.value = false
+    }
   })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    isSubmitting.value = true
     let res;
    if (pathName === '/register') { 
       registerMutation.mutate({
@@ -61,8 +65,9 @@ const Form = () => {
           email: userDeets.email.v,
           redirect: false,   
       });
+      isSubmitting.value = false
     }
-    if (!res?.error) {
+    if (pathName === '/login' && !res?.error) {
       router.push('/')
       router.refresh();
     }
@@ -70,6 +75,10 @@ const Form = () => {
 
     return (
         <>
+        <div className="user-title">
+          {pathName === '/register'? 'Create an NGB Account' :
+          'Login to your NGB account'}
+          </div>
        <form className="user-form" onSubmit={handleSubmit}>
     {pathName === '/register' && 
     (
@@ -82,12 +91,19 @@ const Form = () => {
      <label htmlFor="email" className="user-label"> Email </label>
       <input type="email" id="email" name="email" value={userDeets.email.value} onChange={handleInputChange} placeholder="email" />
      
-      <label htmlFor="password" className="user-label">  </label>
+      <label htmlFor="password" className="user-label"> Password </label>
       <input type="password" id="password" name="userPassword" value={userDeets.userPassword.value} onChange={handleInputChange} placeholder="password" />
-       <button type='submit' className="user-btn">
-        {pathName === '/register' ? 'Create Account' : 'Login'}
+       <button type='submit' className="user-btn" disabled={isSubmitting.value}>
+        {formType}
         </button>
     </form>
+     <div className="register-prompt">
+      {pathName === '/register' ? 'Already have an account?, login'
+      :`Don't have an account?, create one`} 
+      <Link href={pathName === '/register' ? '/login' : '/register'}
+      >here
+      </Link>
+      </div>
         </>
 
   )

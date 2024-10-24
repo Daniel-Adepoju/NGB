@@ -5,6 +5,20 @@ import {compare} from 'bcrypt'
 import User from '../../models/user'
 
  const handler = NextAuth({
+    callbacks : {
+ //async jwt & async session returns full userCredentials
+async jwt({token, user, trigger, session}) {
+    if (trigger ===  "update") {
+        token = session
+        return {...token, ...session.user}
+    }
+    return {...token, ...user};
+},
+async session ({session, token}) {
+    session.user = token
+    return session
+}
+    },
     session: {
         strategy: 'jwt',
     },
@@ -26,6 +40,7 @@ import User from '../../models/user'
                 id: user._id,
                 name: user.username,
                 email: user.email,
+                profilePic: user.profilePic || '',
             }
         }
         return null

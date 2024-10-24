@@ -1,31 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@300..700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  outline: 1px solid rgb(217, 0, 0);
 }
 
-body {
+body, .main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   min-width: 100%;
   min-height: 100vh;
-  font-family: font("text");
+  font-family: "Quicksand", sans-serif;
+  background-color: rgb(249, 249, 249);
 }
 
-img {
-  background-color: white;
+.main {
+  min-width: 99%;
+  min-height: 100vh;
+  margin-inline: auto;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 2px 2px 2px 2px rgb(200, 199, 199);
+  font-family: "Quicksand", sans-serif;
+  font-size: 23px;
+  border-radius: 5%;
 }
 
 nav {
-  background-color: black;
+  z-index: 100;
+  position: fixed;
+  background-color: rgb(0, 96, 2);
   color: #ffffff;
   width: 100%;
   margin: 0 auto;
   text-align: center;
+  padding: 0 2px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -37,6 +50,7 @@ nav .logo {
 }
 nav a {
   display: block;
+  text-decoration: none;
   color: white;
 }
 nav ul {
@@ -50,11 +64,30 @@ nav ul li {
   list-style: none;
   margin-left: 20px;
 }
+nav ul li.logAndSign {
+  cursor: pointer;
+  background-color: green;
+  padding: 5px 2em;
+  border-radius: 4px;
+}
 nav ul img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
+  margin-inline: auto;
+}
+
+.homepage {
+  margin-top: 70px;
+}
+
+.user-title {
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+  font-size: 25px;
+  color: rgb(0, 96, 2);
+  margin: 100px auto;
 }
 
 .user-form {
@@ -63,7 +96,7 @@ nav ul img {
   justify-content: space-evenly;
   align-items: center;
   gap: 5px;
-  margin-top: 70px;
+  margin-top: -70px;
   margin-inline: auto;
   min-width: 60%;
   padding: 20px;
@@ -73,6 +106,9 @@ nav ul img {
 .user-form .user-label {
   color: grey;
   font-weight: bold;
+  font-size: 15px;
+  align-self: flex-start;
+  margin-bottom: -6px;
 }
 .user-form input {
   transition: 200ms ease-in;
@@ -92,12 +128,13 @@ nav ul img {
   text-transform: capitalize;
 }
 .user-form .user-btn {
+  color: white;
   margin-top: 10px;
-  padding: 7px 2px;
+  padding: 8px 2px;
   width: 50%;
   border: none;
   border-radius: 3px;
-  background-color: rgb(130, 236, 98);
+  background-color: green;
   cursor: pointer;
   transition: 300ms ease-in;
 }
@@ -105,12 +142,289 @@ nav ul img {
   background-color: rgb(26, 166, 26);
 }
 
+.register-prompt {
+  font-size: 18px;
+  margin-inline: auto;
+}
+.register-prompt a {
+  margin-left: 5px;
+  color: green;
+  text-decoration: underline;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 300ms ease-in;
+  width: 90%;
+  margin: 100px auto;
+}
+@media (min-width: 700px) {
+  .profile-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+.profile-container section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid rgb(0, 96, 2);
+  width: 100%;
+}
+@media (min-width: 700px) {
+  .profile-container section {
+    border-bottom: none;
+  }
+}
+.profile-container .profile-picture {
+  position: relative;
+  border-radius: 50%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.profile-container .profile-picture img {
+  border-radius: 50%;
+  margin-inline: auto;
+  outline: 2px solid rgb(0, 96, 2);
+}
+.profile-container .profile-picture .edit-btn {
+  transition: 300ms ease-out;
+  cursor: pointer;
+  position: absolute;
+  width: 40px;
+  top: 60%;
+  left: 70%;
+  margin-inline: auto;
+}
+.profile-container .profile-picture .edit-btn:hover {
+  transition: 300ms ease-out;
+  transform: scale(0.97);
+}
+.profile-container .profile-picture .edit-btn img {
+  width: 100%;
+  margin-inline: auto;
+  border-radius: 0%;
+  outline: none;
+  background-color: rgb(255, 255, 255);
+}
+.profile-container .profile-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 15px;
+  font-weight: bold;
+  gap: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-inline: auto;
+}
+.profile-container .profile-details img {
+  width: 40px;
+  cursor: pointer;
+  transition: 300ms ease-out;
+}
+.profile-container .profile-details img:hover {
+  transition: 300ms ease-out;
+  transform: scale(0.97);
+}
+.profile-container .profile-details input {
+  transition: 200ms ease-in;
+  border: none;
+  outline: 1px solid green;
+  padding: 10px;
+  width: 100%;
+}
+.profile-container .profile-details input::-moz-placeholder {
+  font-weight: bold;
+}
+.profile-container .profile-details input::placeholder {
+  font-weight: bold;
+}
+.profile-container .profile-details label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.profile-container .profile-details .edit-choice {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-bottom: -14px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-inline: auto;
+  width: 90%;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 2px 2px 1px 1px rgba(79, 78, 78, 0.1);
+  white-space: pre-wrap;
+  overflow: hidden;
+}
+.card-container .head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  background-color: rgba(86, 203, 92, 0.6);
+  width: 100%;
+  padding: 6px;
+  border-radius: 6px 6px 0 0;
+}
+.card-container .head .creator-pic {
+  border: 2px solid red;
+  border-radius: 50%;
+  width: 50px;
+}
+.card-container .head .creator-pic img {
+  width: 100%;
+}
+.card-container .head div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2px;
+}
+.card-container .head div .creator-name {
+  font-size: 20px;
+}
+.card-container .head div .date-created {
+  font-size: 15px;
+  font-weight: bold;
+  opacity: 50%;
+}
+.card-container .body {
+  width: 100%;
+}
+.card-container .body .post-picture {
+  width: 95%;
+  margin-inline: auto;
+}
+.card-container .body .post-picture img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  width: 100%;
+  height: auto;
+}
+.card-container .body .post-content {
+  width: 96%;
+  min-height: 10%;
+  margin-inline: auto;
+  margin-top: 10px;
+  font-size: 18px;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(86, 203, 92, 0.6);
+}
+.card-container .body .post-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 96%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.card-container .body .post-btn img {
+  width: 35px;
+  cursor: pointer;
+  transition: 300ms ease-out;
+}
+.card-container .body .post-btn img:hover {
+  transform: scale(1.05);
+  transition: 300ms ease-in;
+}
+.create-portal {
+  border: 2px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 80px auto;
+  padding: 2px 6px;
+}
+.create-portal h3 {
+  opacity: 80%;
+  color: rgb(30, 156, 17);
+}
+.create-portal .postForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 20px auto;
+}
+.create-portal .postForm label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.create-portal .postForm textarea {
+  font-size: 20px;
+  border: none;
+  outline: 1px solid green;
+  padding: 10px;
+  width: 400px;
+  height: 300px;
+  border-radius: 3px;
+  resize: none;
+}
+.create-portal .postForm textarea:hover {
+  background-color: #b5dab5;
+}
+.create-portal .postForm button {
+  transition: 300ms ease-in;
+  color: white;
+  margin-top: 10px;
+  padding: 8px 2px;
+  width: 50%;
+  border: none;
+  border-radius: 3px;
+  background-color: green;
+  cursor: pointer;
+}
+.create-portal .postForm button:hover {
+  transition: 300ms ease-in;
+}
+
+.error {
+  background-color: darkred;
+  width: 90%;
+  min-height: 100vh;
+  margin: 80px auto;
+}
+
 .loader {
+  margin: 100px auto;
   width: 50px;
   padding: 8px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #ffffff;
+  background: rgb(0, 126, 0);
   --_m:
     conic-gradient(#0000 10%,#000),
     linear-gradient(#000 0 0) content-box;

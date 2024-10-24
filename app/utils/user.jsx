@@ -11,7 +11,7 @@ export const useProviders = () => useContext(ProviderContext)
 
 const User = ({children}) => {
 
-  const {data: session} = useSession()
+  const {data: session, update} = useSession()
   const [providers,setProviders] = useState(null)
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const User = ({children}) => {
 
   return (
     <ProviderContext.Provider value={providers}>
-      <UserContext.Provider value={session}>
+      <UserContext.Provider value={{session, update}}>
            {children}
        </UserContext.Provider>
     </ProviderContext.Provider>
