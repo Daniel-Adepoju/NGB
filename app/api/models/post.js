@@ -1,4 +1,4 @@
-import {mongoose,Schema,model,models} from "mongoose";
+import {Schema,model,models} from "mongoose";
 
 const PostSchema = new Schema({
   creator: {
@@ -12,6 +12,14 @@ const PostSchema = new Schema({
  },
   image: {
     type: String,
+  },
+  like: {
+    type: Array,
+    default: [],
+  },
+  comment: {
+    type: Array,
+    default: [],
   }
 },{timestamps: true})
 

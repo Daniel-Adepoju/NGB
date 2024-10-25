@@ -60,6 +60,9 @@ const Page = () => {
     router.back()
   }
 
+  if (!session?.user) {
+  <div> Log TF in </div>
+  }
   return (
     <>
       <div className="profile-container">
@@ -69,7 +72,7 @@ const Page = () => {
             {session?.user && (
               <CldUploadWidget
                 options={{ sources: ["local", "camera", "google_drive"] }}
-                uploadPreset="next_cloudinary_app"
+                uploadPreset="ngb_cloudinary_app"
                 onSuccess={(results) => {
                   currentImg.value = results.info.public_id
                   handleUpdateSession()

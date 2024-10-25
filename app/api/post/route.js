@@ -11,25 +11,22 @@ export const GET = async (req,res) => {
   let content = {
     content:{ $regex: search, $options: 'i'}
   }
-   let tag = { 
-    tag:{ $regex: search, $options: 'i'}
-  }
 
   try {
-    await connetcToDB()
+    await connectToDB()
   const postsDeets = await Post.find()
   const numOfPages = Math.ceil(postsDeets.length / Number(limit))
   if (cursor >= numOfPages) {
     cursor = undefined
   }
-  let postsConfig = Post.find({$or :[ content,tag]}).sort('-createdAt').populate("creator")
 
+  let postsConfig = Post.find({$or :[ content]}).sort('-createdAt').populate("creator")
    postsConfig = postsConfig.skip(skipNum).limit(limit)
   
   const posts = await postsConfig
   return new Response(JSON.stringify([{posts,cursor}]),{status:200})
     } catch(err) {
  console.log(err)
- return new Response('Failed to get posts', {status: 500})
+ return new Response(err, {status: 500})
     }
 }

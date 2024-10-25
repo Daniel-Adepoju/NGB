@@ -23,7 +23,7 @@ const userSchema = new Schema({
  profilePic: {
     type:String
  }
-})
+}) 
 
 const User = models.User || model('User',userSchema)
 

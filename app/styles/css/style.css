@@ -79,7 +79,9 @@ nav ul img {
 }
 
 .homepage {
+  width: 100%;
   margin-top: 70px;
+  min-height: 100vh;
 }
 
 .user-title {
@@ -263,6 +265,15 @@ nav ul img {
   margin-bottom: -14px;
 }
 
+.card-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  border: 2px solid red;
+}
+
 .card-container {
   display: flex;
   flex-direction: column;
@@ -272,7 +283,7 @@ nav ul img {
   margin-top: 30px;
   margin-bottom: 30px;
   margin-inline: auto;
-  width: 90%;
+  width: 15em;
   border-radius: 6px 6px 0 0;
   box-shadow: 2px 2px 1px 1px rgba(79, 78, 78, 0.1);
   white-space: pre-wrap;
@@ -290,12 +301,16 @@ nav ul img {
   border-radius: 6px 6px 0 0;
 }
 .card-container .head .creator-pic {
-  border: 2px solid red;
+  border: 2px solid rgb(0, 255, 106);
   border-radius: 50%;
-  width: 50px;
+  width: 60px;
 }
 .card-container .head .creator-pic img {
   width: 100%;
+  height: auto;
+  border-radius: 50%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .card-container .head div {
   display: flex;
@@ -346,6 +361,16 @@ nav ul img {
   width: 96%;
   margin-top: 20px;
   margin-bottom: 10px;
+}
+.card-container .body .post-btn div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(4, 133, 62);
 }
 .card-container .body .post-btn img {
   width: 35px;

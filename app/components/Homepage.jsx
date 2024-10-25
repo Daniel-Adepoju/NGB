@@ -5,7 +5,7 @@ import { signal, effect } from '@preact/signals-react'
 import { redirect, useSearchParams } from 'next/navigation';
 import Loading from '../loading';
 import {useUser,useProviders} from '../utils/user';
-import Card from './Card'
+import CardList from './CardList'
 
 export default function HomePage() {
   useSignals()
@@ -20,13 +20,12 @@ export default function HomePage() {
   redirect('/login')
  }
 
- if (!providers || goToLogin) {
+ if (goToLogin) {
   return <Loading />
  }
    return (
     <div className="homepage">
-  <div className="heading">Welcome To NGB </div>
-  <Card /> 
+  <CardList /> 
     </div>
   );
 }

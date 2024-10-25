@@ -17,7 +17,10 @@ const Nav = () => {
   
   return (
     <nav>
-        <div className="logo"> NGB </div>
+       <Link href='/' >
+         <div className="logo"> NGB </div>
+       </Link>
+     
         <ul>
   {session?.user && <li>
     <Link href='/create-post'>Create Post</Link> </li>}
