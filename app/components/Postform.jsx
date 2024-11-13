@@ -10,26 +10,54 @@ export const postDeets = {
     image: signal('')
   };
   export const isSubmitting  = signal(false)
-
+  
 const Postform = ({handleSubmit}) => {
     useSignals()
     const pathName = usePathname()
+    
+    const handleTextArea = (e) => {
+        if(e.target.value.trim().length > 300) {
+         postDeets.content.value = e.target.value.substring(0,300)
+    } else {
+      postDeets.content.value = e.target.value
+    }
+}
+    const handlePasteToTextArea = (e) => {
+
+      const pastedText = e.clipboardData.getData('text')
+      e.preventDefault()
+      const newText = postDeets.content.value + pastedText  
+      postDeets.content.value = newText.substring(0, 200)
+    }
 
   return (
     <div className="create-portal">
-   <h3>
+      <div>
+        
+      </div>
+   <header>
     {pathName === '/create-post' ? 'Create a post' : 'Edit your post'} 
-   </h3>
+   </header>
    <form  onSubmit={handleSubmit} className="postForm">
     {/* <label htmlFor="content"> Write your content</label> */}
       <textarea
       name="content"
       value={postDeets.content.value}
-      onChange={(e) => postDeets.content.value = e.target.value}
+      onChange={handleTextArea}
+      onPaste={handlePasteToTextArea}
       >
       </textarea>
-      <button> Add Image </button>
-      <button type="submit">Create Post</button>
+     <span className="text-limit">
+       {`${postDeets.content.value.trim().length}/300`}
+       </span>
+      <div className="btns">
+        <button> Add Image </button>
+      <button disabled={isSubmitting.value} type="submit">
+        {pathName === '/create-post' && 
+        `${!isSubmitting.value ? 'Create Post' : 'Creating Post'}`}
+        </button>  
+      </div>
+    
    </form>
     </div>
   )

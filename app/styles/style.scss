@@ -1,4 +1,5 @@
 @import './variables';
+@import './animations';
 
 * {
   margin: 0;
@@ -260,7 +261,6 @@ body {
 .card-list {
   @include flex(column,center , flex-start );
   width: 100%;
-  border: 2px solid red;
 }
 .card-container{
   @include flex(column,flex-start,center);
@@ -350,59 +350,149 @@ body {
       }
     }
   }
+ 
 }
   @media (min-width: 700px) {
   }
 }
 
 
+.comment-container {
+  width: 100%;
+  padding: 2px 6px;
+    .comment {
+      // border: 2px solid orange;
+      width: 100%;
+      margin-inline: auto;
+
+      .head {
+        background-color: inherit;
+        font-size: 17px;
+        position: relative;
+      img {
+        border-radius: 50%;
+      }
+      span::after {
+        content: "";
+        position: absolute;
+        background-color: color('secondaryGreen');
+        width: 80%;
+        height: 2px;
+        bottom: 0;
+        left: 18%;
+      }
+    }
+    .body {
+      font-size: 16px;
+      padding-top: 20px;
+      padding-left: 60px;
+      background-color: inherit;
+      .comment-text {
+        overflow: hidden;
+        white-space: pre-wrap;
+      }
+    }
+    }
+   .write-comment {
+    @include flex(row, center, flex-start);
+    gap: 10px;
+    padding-left: 10px;
+    .user-pic {
+      border-radius: 50%;
+      img {
+        border-radius: 50%;
+      }
+    }
+    input {
+      border: none;
+      outline: 1px solid rgb(46, 154, 46);
+      padding: 6px;
+      width: 100%;
+      border-radius: 2px;
+    }
+    .send-comment {
+      @include transition(300ms, ease-in);
+      width: 46px;
+      border-radius: 50%;
+      padding: 6px;
+      cursor: pointer;
+      &:hover {
+        @include transition(300ms, ease-out);
+        background-color: rgb(181, 230, 192);
+      }
+    }
+   }
+    
+  }
+
 .create-portal {
-  border: 2px solid red;
-  @include flex(column, flex-start, flex-start);
+  @include flex(column, center, flex-start);
   width: 100%;
   margin: 80px auto;
   padding: 2px 6px;
-  h3 {
-    opacity: 80%;
-    color: rgb(30, 156, 17);
+  @media (min-width: 700px) {
+   @include flex(column, flex-start, center);
+  }
+  header {
+    opacity: 100%;
+    color: rgb(5, 177, 129);
+    font-size: 1.5rem;
+    font-weight: bold;
   }
   .postForm {
     @include flex(column,center, flex-start);
+    position: relative;
     width: 100%;
     margin: 20px auto;
-    label {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 8px;
+    @media (min-width: 700px) {
+      @include flex(row, center ,flex-start);
+      gap: -10px;
     }
+    
     textarea {
+      @include transition(300ms, ease-out);
       font-size: 20px;
       border: none;
       outline: 1px solid green;
       padding: 10px;
-      width:  400px;
+      width:  90%;
       height: 300px;
       border-radius: 3px;
        resize: none;
       &:hover {
-        background-color: #b5dab5;
+        @include transition(300ms, ease-in);
+        background-color: #dcdcdc86;
       }
     }
-   
+    .text-limit {
+      position: absolute;
+      bottom: 26%;
+      right: 8%;
+      font-size: .8em;
+      @media(min-width: 700px) {
+        left: 1%;
+        bottom: 4%;
+      }
+    }
+    .btns {
+      @include flex(column,center, flex-start);
+      width: 90%;
     button {
       @include transition(300ms, ease-in );
       color: white;
       margin-top: 10px;
-      padding: 8px 2px;
+      padding: 10px 2px;
       width: 50%;
       border: none;
-      border-radius: 3px;
+      border-radius: 4px;
       background-color: green;
       cursor: pointer;
       &:hover {
         @include transition(300ms, ease-in );
+        transform: scale(0.99);
   }
 }
+    }
   }
 }
 
@@ -413,20 +503,4 @@ body {
   min-height: 100vh;
   margin: 80px auto;
 }
-.loader {
-  margin:  100px auto;
-  width: 50px;
-  padding: 8px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: rgb(0, 126, 0);
-  --_m: 
-    conic-gradient(#0000 10%,#000),
-    linear-gradient(#000 0 0) content-box;
-  -webkit-mask: var(--_m);
-          mask: var(--_m);
-  -webkit-mask-composite: source-out;
-          mask-composite: subtract;
-  animation: l3 1s infinite linear;
-}
-@keyframes l3 {to{transform: rotate(1turn)}}
+

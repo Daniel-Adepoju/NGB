@@ -59,7 +59,7 @@ const CardList = () => {
         refValue={index === 9 ? observerCallback : null}
         />
                </div>)
-        })
+        }) 
       })
       
       if(postsQuery.isError) {

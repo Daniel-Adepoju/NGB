@@ -1,5 +1,21 @@
 import {Schema,model,models} from "mongoose";
 
+const CommentSchema = new Schema({
+  content: {
+      type: String,
+      required: [true, "Content is required"],
+  },
+  creator: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+  },
+  commentDate: {
+    type: Date,
+    default: Date.now,
+  }
+})
+
 const PostSchema = new Schema({
   creator: {
     type: Schema.Types.ObjectId,
@@ -18,9 +34,9 @@ const PostSchema = new Schema({
     default: [],
   },
   comment: {
-    type: Array,
-    default: [],
+    type: [CommentSchema]
   }
+
 },{timestamps: true})
 
 const Post = models.Post || model('Post',PostSchema)

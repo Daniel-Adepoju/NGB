@@ -24,7 +24,6 @@ export const PATCH = async (req) => {
         const updatePost = await Post.findOneAndUpdate(
             {_id: id},
             {like: addLike},
-            // {$push : {like: user._id}},
             {new:true, runValidators: true}
         )
         return new Response(JSON.stringify(updatePost), {status: 200})

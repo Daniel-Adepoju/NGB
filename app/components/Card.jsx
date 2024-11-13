@@ -2,23 +2,28 @@
 import { usePathname } from 'next/navigation';
 import {useUser} from '../utils/user';
 import { CldImage } from 'next-cloudinary';
-import { signal } from '@preact/signals-react';
-import { useSignals } from '@preact/signals-react/runtime';
+import { signal, computed } from '@preact/signals-react';
+import { useSignal, useSignals } from '@preact/signals-react/runtime';
 import { data } from '../utils/axiosUrl';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useMutation,useQueryClient} from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-
+import Burst from './Burst';
+import Comment from './Comment'
+import Image from 'next/image'
 dayjs.extend(relativeTime)
+
+
 const Card = ({refValue, post}) => {
   useSignals()
+ const queryClient = useQueryClient()
  const day = dayjs(post.createdAt).fromNow().toString()
  const {session, update} = useUser()
  const pathName = usePathname()
  const likeData = signal(post.like ? post.like : [])
  const currentUserLiked = likeData.value.includes(session?.user?.id)
- const queryClient = useQueryClient()
+ const displayBurst = useSignal(false)
+ const openComment = useSignal(false)
 
 const likePost = async(editedLike) => {
   try {
@@ -34,7 +39,7 @@ const likePostMutation = useMutation({
   mutationFn: likePost,
   onSuccess: (data) => {
     //invalidate query to display most recent change e.g like
- queryClient.invalidateQueries(['posts'], {exact: true}) //
+   queryClient.invalidateQueries(['posts'], {exact: true})
   }
 })
 
@@ -43,10 +48,18 @@ const handleLike = () => {
     id: post._id,
     userId: session?.user?.id,
   })
-}
-// console.log(currentUserLiked)
-// console.log(likeData.value)
+   if(!currentUserLiked) {
+    displayBurst.value = true
+    setTimeout(() => {
+        displayBurst.value = false
+        }, 3000)
+   }
+  }
 
+  const handleCommentDisplay = () => {
+    openComment.value =!openComment.value
+  }
+  
   return (
     <div ref={refValue} className="card-container">
         <section className="head">
@@ -91,6 +104,7 @@ const handleLike = () => {
      </div>
      <div className="post-btn">
         <div onClick={handleLike} id='like'>
+        {currentUserLiked &&  <Burst show={displayBurst.value}/>}
           <span>
            {likeData.value.length}  
             </span>
@@ -98,14 +112,19 @@ const handleLike = () => {
         {currentUserLiked ? <img src="../liked.png"/> :
         <img src="../unliked.png"/> }
           </div>
-         <div>
+         <div id='comment' onClick={handleCommentDisplay}>
          <img src="../comment.svg" />    
          </div>
   
      </div>
       </section>
-   
+     {openComment.value &&
+     <section className='comment-container'
+     >
+     <Comment post={post}/>
+      </section>}
         </div>
+        
   )
 }
 

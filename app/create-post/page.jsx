@@ -37,6 +37,7 @@ const Page = () => {
 
   const handleCreatePost = async (e) => { 
   e.preventDefault()
+  isSubmitting.value = true
   createPostMutation.mutate({
     creator: session?.user?.id,
     content: postDeets.content.value,
@@ -45,7 +46,7 @@ const Page = () => {
   }
   
   if (!session?.user) {
-    return <div> You need to be logged in</div>
+    return <div> Log in to create a post</div>
   }
   return (
     <PostForm
