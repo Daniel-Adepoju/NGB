@@ -25,6 +25,8 @@ const Card = ({refValue, post}) => {
  const displayBurst = useSignal(false)
  const openComment = useSignal(false)
 
+console.log(session?.user)
+
 const likePost = async(editedLike) => {
   try {
   const res = await data.value.patch('/api/post/like', editedLike)
@@ -64,7 +66,6 @@ const handleLike = () => {
     <div ref={refValue} className="card-container">
         <section className="head">
                <div className="creator-pic">
-       {post.creator.profilePic ? 
                 <CldImage
                 width="100"
                 height="100"
@@ -75,8 +76,7 @@ const handleLike = () => {
                   source: true,
                 }}
               />
-       :  <img src="../icons8-user-100 (1).png" alt="author-pic"/>
-              }</div>
+    </div>
         <div>
            <span className="creator-name">
             {post.creator.username}

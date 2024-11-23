@@ -59,10 +59,61 @@ body {
   margin:  0 auto;
   text-align: center;
   padding: 0 2px;
+  border-bottom: 2px solid rgba(35, 31, 31, 0.153);
    @include flex(row,center,space-between);
   .logo {
     font-size: 50px;
     width: 30%;
+  }
+  .toggle-menu {
+    margin-top: auto;
+    width: 80px;
+    height: 40px;
+    padding: 4px;
+    cursor: pointer;
+    position: relative;
+    span {
+      @include transition(300ms, ease-out);
+      position: absolute;
+      border-radius:  5px;
+      width: 50%;
+      // height: 1px;
+      padding: 2px;
+      margin-left: 10px;
+      background-color: aliceblue;
+      &:nth-child(1) {
+        left: 0;
+        top: 0;
+        // background-color: green;
+      }
+      &:nth-child(2) {
+        top: 30%;
+        left: 0;
+      }
+      &:nth-child(3) {
+        top: 60%;
+        left: 0;
+      }
+    }
+    &:hover {
+      @include transition(300ms, ease-in );
+span {
+  &:nth-child(1) {
+    rotate: -90deg;
+    transform: translateY(-20px);
+    top: 30%;
+  }
+  &:nth-child(2) {
+    rotate:y -83deg;
+    background-color: color('secondaryGreen');
+  }
+  &:nth-child(3) {
+    rotate: -90deg;
+    transform: translateY(20px);
+    top: 30%;
+  }
+}
+    }
   }
  a {
     display: block;
@@ -70,16 +121,21 @@ body {
     color: white;
   }
   ul {
-    @include flex(row,center,space-around);
+    @include flex(row,center,flex-end);
+    gap: 20px;
     min-width: 50%;
+    margin-right: 30px;
+ 
     li {
+      @include transition(300ms, ease-in);
       list-style: none;
       margin-left: 20px;
-      &.logAndSign {
         cursor: pointer;
-        background-color: green;
-        padding: 5px 2em;
+        padding: 5px 1em;
         border-radius:  4px;
+        &:hover {
+          @include transition(300ms, ease-out);
+         background-color: rgba(39, 142, 61, 0.221);
         }
     }
     img {
@@ -88,6 +144,35 @@ body {
       border-radius: 50%;
       cursor: pointer;
       margin-inline: auto;
+    }
+   
+    @media (max-width: 700px) {
+      display:none;
+      z-index: 100;
+      background-color: inherit;
+      position: absolute;
+      top: 103%;
+      right: -8%;
+      padding: 8px 6px;
+      &.active {
+        @include flex(column, flex-start, flex-start);
+        height: 100vh;
+      }
+      li {
+        margin: 1px 0;
+        width: 98%;;
+        text-align: start;
+        &::before {
+          content: '';
+          position: absolute;
+          left: 5%;
+          margin-top: -6px;
+          width: 90%;
+          border-radius: 9px;
+          height: 1.5px;
+          background-color: rgb(63, 104, 66);
+        }
+      }
     }
   }
  }
@@ -275,17 +360,16 @@ body {
   overflow: hidden;
   .head {
     @include flex(row,center,flex-start);
-    gap: 12px;
+    gap: 6px;
     background-color: color('secondaryGreen');
     width: 100%;
     padding: 6px;
     border-radius: 6px 6px 0 0;
     .creator-pic {
-      border: 2px solid rgb(0, 255, 106);
       border-radius: 50%;
       width: 60px;
       img {
-        width: 100%;
+        width: 80%;
         height: auto;
         border-radius: 50%;
         object-fit: contain;

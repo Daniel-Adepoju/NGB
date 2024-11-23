@@ -85,7 +85,7 @@ const Comment = ({post}) => {
     width="40"
     height="40"
     alt="profile_img"
-    src={post.creator.profilePic}
+    src={session?.user?.profilePic}
     crop={{
       type: "auto",
       source: true,

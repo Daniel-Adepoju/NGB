@@ -20,15 +20,16 @@ const Nav = () => {
        <Link href='/' >
          <div className="logo"> NGB </div>
        </Link>
-     
+    <div className="toggle-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  
+
         <ul>
-  {session?.user && <li>
-    <Link href='/create-post'>Create Post</Link> </li>}
-        <Link href={`/profile/profile_update/?id=${session?.user?.id}&name=${session?.user?.name}`}>
-    <li>
-        {session?.user &&  !session?.user?.profilePic &&
-    <img src="../icons8-user-100 (1).png" alt="profile_img"/>
-    }
+          <span>
+    <Link href={`/profile/profile_update/?id=${session?.user?.id}&name=${session?.user?.name}`}>
        {session?.user && session?.user?.profilePic &&
         <CldImage  
         width="300" 
@@ -41,15 +42,21 @@ const Nav = () => {
         }} />
         }
        {!session?.user && ''}
-    </li>
     </Link>
-    
-    
+    </span>
+
+
+
+  {session?.user && <li>
+    <Link href='/create-post'>Create Post</Link> </li>}
+
+
     <li className="logAndSign"> 
      {!session?.user ? <Link href="/login">Login</Link>
      : <span onClick = {(() => signOut())}> Sign Out </span>}
         </li>
      
+     <li>Views</li>
         </ul>
         
     </nav>

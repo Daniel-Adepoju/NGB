@@ -40,7 +40,7 @@ async session ({session, token}) {
                 id: user._id,
                 name: user.username,
                 email: user.email,
-                profilePic: user.profilePic || '',
+                profilePic: user.profilePic,
             }
         }
         return null

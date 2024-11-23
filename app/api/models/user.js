@@ -21,8 +21,9 @@ const userSchema = new Schema({
  },
 
  profilePic: {
-    type:String
- }
+    type:String,
+    default: 'icons8-user-100_2_vnz3je',
+ },
 }) 
 
 const User = models.User || model('User',userSchema)
