@@ -12,9 +12,6 @@ export default function HomePage() {
 
   const searchParams = useSearchParams()
   const goToLogin = searchParams.get('redirect')
-  const {session} = useUser()
-  const providers = useProviders()
-
 
  if (goToLogin) {
   redirect('/login')

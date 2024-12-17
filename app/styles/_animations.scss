@@ -15,7 +15,19 @@
     animation: l3 1s linear infinite;
   }
   @keyframes l3 {to{transform: rotate(1turn)}}
-  
+  .create-portal .loader {
+	margin: 10px auto;
+	background-color: #444a46;
+  }
+ 
+	.card-list {
+		.loader {
+		margin-bottom: -8px;
+ @media (max-width:700px) {
+        margin: 0px auto;
+		margin-bottom: -20px;
+ }
+  }}
 
 
 
@@ -33,13 +45,13 @@
 .burst{
 	position: absolute;
     top: 50%;
-    left: 50%;
+    left: 53%;
 }
 
 .burst .line{
 	position: absolute;
 	background: #fff;
-	width: 1px;
+	width: 3px;
 	height: 10px;
 }
 
@@ -203,3 +215,14 @@
 	}
 }
       
+
+
+@keyframes coverAni{
+	0% {
+	  background-color: #69696600; /* light black with low opacity */
+	}
+	100% {
+	  background-color: #40393938; /* lighter black with low opacity */
+	}
+  }
+  

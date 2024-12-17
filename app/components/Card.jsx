@@ -25,8 +25,6 @@ const Card = ({refValue, post}) => {
  const displayBurst = useSignal(false)
  const openComment = useSignal(false)
 
-console.log(session?.user)
-
 const likePost = async(editedLike) => {
   try {
   const res = await data.value.patch('/api/post/like', editedLike)
@@ -87,22 +85,23 @@ const handleLike = () => {
        
         </section>
       <section className="body">
-             <div className="post-picture">
-         {post.image &&   <CldImage
-                width="100"
-                height="100"
-                alt="profile_img"
+       {post.image && 
+       <div className="post-picture">
+         <CldImage
+                width="1500"
+                height="950"
+                alt="post_img"
                 src={post.image}
                 crop={{
                   type: "auto",
                   source: true,
                 }} />
-              }
-             </div>
-     <div className="post-content">
+             </div>}
+        <div className="content_con">
+       <div className="post-content">
         {post.content}
-     </div>
-     <div className="post-btn">
+         </div>
+      <div className="post-btn">
         <div onClick={handleLike} id='like'>
         {currentUserLiked &&  <Burst show={displayBurst.value}/>}
           <span>
@@ -117,6 +116,9 @@ const handleLike = () => {
          </div>
   
      </div>
+        </div>
+   
+   
       </section>
      {openComment.value &&
      <section className='comment-container'

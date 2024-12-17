@@ -15,11 +15,7 @@ const Comment = ({post}) => {
     const commentText = useSignal("")
     const {session} = useUser()
     const queryClient = useQueryClient()
- console.log(commentData)
-  //  console.log(
-  //   {postId:post._id, userId: session?.user?.id}
-  //  )
-     console.log(post)
+
     const createComment = async (newComment) => {
       try {
    const res = await data.value.post('api/post/comment', newComment)
@@ -78,8 +74,9 @@ const Comment = ({post}) => {
 
   return (
     <>
-    {listOfComments}
-    <div className="write-comment">
+   {listOfComments.length > 0 ? listOfComments : 
+   'No comments yet, be the first to comment'}
+  {session?.user &&  <div className="write-comment">
     <div className='user-pic'>
     <CldImage
     width="40"
@@ -99,7 +96,7 @@ const Comment = ({post}) => {
    />
 
    <img onClick={handleCreateComment} className='send-comment' src='../send.svg' alt='send-comment'/>
-    </div>
+    </div> }
   
    </>
   )

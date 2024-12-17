@@ -1,11 +1,12 @@
 {
   "liveSassCompile.settings.formats": [
-
+    
     {
       "format": "expanded",
       "extensionName": ".css",
       "savePath": "app/styles/css",
       "savePathReplacementPairs": null
     }
-  ]
+  ],
+  "liveSassCompile.settings.watchOnLaunch": true
 }

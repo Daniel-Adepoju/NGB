@@ -7,12 +7,14 @@ import { useMutation } from '@tanstack/react-query'
 import {data} from '../utils/axiosUrl'
 import { useRouter } from 'next/navigation'
 import {useUser} from '../utils/user'
+import Link from 'next/link'
 
 const Page = () => {
   useSignals()
   const {session} = useUser()
   const router = useRouter()
-
+ 
+  
   const createPost =  async(newPost) => {
     try {
       const response = await data.value.post('api/post/create-post', newPost)
@@ -32,6 +34,7 @@ const Page = () => {
     onSuccess: () => {
       isSubmitting.value = false
       postDeets.content.value = ''
+      postDeets.image.value = ''
     }
   })
 
@@ -46,11 +49,19 @@ const Page = () => {
   }
   
   if (!session?.user) {
-    return <div> Log in to create a post</div>
-  }
+    return (
+    <div className="loginFirst">
+    <span>
+        <Link href='/login'>Login</Link> to access this page 
+    </span>
+       </div>
+  )}
   return (
+    <>
     <PostForm
-    handleSubmit={handleCreatePost}/>
+    handleSubmit={handleCreatePost}
+    />
+    </>
   )
 }
 

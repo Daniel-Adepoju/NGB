@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation'
 import Loader from '../loading'
 import { useCallback,useRef } from 'react'
 import {data} from '../utils/axiosUrl'
+import Filter from '../components/Filter'
 
 const limit = signal(10)
 const CardList = () => {
@@ -29,7 +30,8 @@ const CardList = () => {
  const postsQuery = useInfiniteQuery ({
   queryKey: ['posts','infinite', {searchValue}],
   getNextPageParam: (prevData) => {
-    return prevData.cursor + 1 || undefined
+    console.log(prevData)
+    return prevData.cursor + 1  || undefined
   },
   queryFn:({pageParam = 1}) => {
     return getPosts(pageParam)
@@ -74,13 +76,17 @@ const CardList = () => {
   
       return (
         <>
-     
+      {postsQuery.isLoading ? <Loader /> : 
+      <div className="total-container">
+              <Filter />
        <div className="card-list">
-        {postsQuery.isLoading ? <Loader /> : mappedPosts }
-        </div>
-    
+        {mappedPosts}
+  
         {postsQuery.isFetchingNextPage ? <Loader/> : ''}
-    
+        </div>
+        </div>}
+      
+      
         </>
       )
 }

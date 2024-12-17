@@ -7,7 +7,7 @@ export const GET = async (req,res) => {
   const limit = searchParams.get('limit') || 10
   const search = searchParams.get('search') || ''
   const skipNum = Number((page- 1) * limit)
-  let cursor = Number((page * limit) / limit)
+  let cursor = Number(page)
   let content = {
     content:{ $regex: search, $options: 'i'}
   }

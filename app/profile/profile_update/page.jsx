@@ -19,7 +19,6 @@ const Page = () => {
   const providers = useProviders()
   const router = useRouter()
 
-  console.log(userName.value)
 
   const handleUpdateSession = async () => {
     await update({
