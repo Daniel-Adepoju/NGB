@@ -38,6 +38,15 @@
   }
 }
 
+.commentLoad {
+  width: 60%;
+  padding-block: 26px;
+  margin-inline: auto;
+}
+.commentLoad .loader {
+  width: 30px;
+}
+
 .animation-container {
   visibility: hidden;
   z-index: 99;
@@ -220,6 +229,14 @@
   }
   100% {
     background-color: rgba(64, 57, 57, 0.2196078431); /* lighter black with low opacity */
+  }
+}
+@keyframes showStats {
+  0% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 * {
@@ -873,6 +890,7 @@ nav ul img {
   gap: 10px;
   padding-left: 10px;
   font-size: 10px;
+  margin-top: 30px;
 }
 .comment-container .write-comment .user-pic {
   border-radius: 50%;
@@ -900,7 +918,7 @@ nav ul img {
 }
 @media (min-width: 1200px) {
   .comment-container {
-    margin-top: 10px;
+    margin-top: 30px;
   }
 }
 
@@ -1125,6 +1143,112 @@ nav ul img {
     align-items: center;
     justify-content: space-around;
   }
+}
+
+.post_statistics {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  background-color: rgba(86, 203, 92, 0.6);
+  width: 100%;
+  margin: 20px auto;
+  margin-bottom: 0%;
+  gap: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 8px;
+  overflow: hidden;
+}
+.post_statistics header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  align-self: center;
+  font-weight: 500;
+  font-size: 20px;
+  color: #117426;
+  cursor: pointer;
+}
+.post_statistics header::after {
+  transition: 300ms ease-out;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid rgba(4, 116, 4, 0.8823529412);
+  transform: rotate(180deg);
+  top: 100%;
+  right: 10%;
+  left: 0;
+}
+.post_statistics header::before {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background-color: #058e13;
+  position: absolute;
+  left: 50%;
+  top: 140%;
+  transform: translateX(-50%);
+}
+.post_statistics header.active::after {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.post_statistics .stats_list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  transition: 300ms ease-in;
+  animation: showStats 350ms ease-in-out;
+}
+
+.userPostInfo {
+  margin-top: 70px;
+  padding: 6px;
+}
+
+.user_posts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 40px auto;
+}
+.user_posts .card-container {
+  overflow: visible;
+}
+
+dialog {
+  margin: 150px auto;
+  min-width: 350px;
+  min-height: auto;
+  border: none;
+  padding: 10px 12px;
+  padding-bottom: 20px;
+  outline: 2px solid rgb(0, 96, 2);
+  overflow: hidden;
+}
+dialog h3 {
+  margin-top: 30%;
+}
+dialog .btn-container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 30%;
 }
 
 .loginFirst {

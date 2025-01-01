@@ -33,11 +33,16 @@ const PostSchema = new Schema({
     default: [],
   },
   comment: {
-    type: [CommentSchema]
+    type: [Schema.Types.ObjectId],
+    ref: 'Comment',
+
   }
 
 },{timestamps: true})
 
 const Post = models.Post || model('Post',PostSchema)
 
+const Comment = models.Comment || model('Comment',CommentSchema)
+
 export default Post
+export {Comment}

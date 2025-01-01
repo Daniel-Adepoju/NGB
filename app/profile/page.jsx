@@ -33,7 +33,7 @@ const page = () => {
         </div>
 
           <div className="profile-body">
-        <Link href='#'>
+        <Link href={`profile/posts/?id=${session?.user?.id}`}>
         <div className="profile-posts">
           profile posts
           </div>   

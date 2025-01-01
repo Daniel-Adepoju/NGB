@@ -28,6 +28,14 @@
 		margin-bottom: -20px;
  }
   }}
+  .commentLoad {
+	width: 60%;
+	padding-block: 26px;
+	margin-inline: auto;
+	.loader {
+  width: 30px;
+	}
+  }
 
 
 
@@ -224,5 +232,15 @@
 	100% {
 	  background-color: #40393938; /* lighter black with low opacity */
 	}
+  }
+
+
+  @keyframes showStats {
+	0% {
+		transform: translateY(-8px);
+	}
+	100% {
+        transform: translateY(0);
+    }
   }
   

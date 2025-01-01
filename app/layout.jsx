@@ -5,7 +5,7 @@ import AuthProvider from './utils/sessionProvider'
 import Nav from './components/Nav'
 import User from './utils/user'
 import Main from './components/Main'
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 export const metadata = {
   title: "NGB",
   description: "A hub for Nigerian pop culture enthusiats",
@@ -21,7 +21,8 @@ export default function RootLayout({children}) {
             <User>
             <Nav/>
             <Main>
-          {children} 
+              <ReactQueryDevtools />
+          {children}
             </Main>
               
               </User>

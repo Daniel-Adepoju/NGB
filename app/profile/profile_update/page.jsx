@@ -60,7 +60,7 @@ const Page = () => {
   }
 
   if (!session?.user) {
-  <div> Log TF in </div>
+  <div className="loginFirst"> Log  in </div>
   }
   return (
     <>

@@ -2,7 +2,8 @@ import {connectToDB} from '../../../utils/database';
 import Post from '../../models/post';
 import User from '../../models/user';
 
-export const PATCH = async (req) => {
+
+export const PATCH = async (req,res) => {
     const {id,userId} = await req.json()
     try {
         await connectToDB()
@@ -30,7 +31,7 @@ export const PATCH = async (req) => {
     }
 }
     catch(err) {
-        console.log(err)
+        console.log(err.message)
 return new Response(err, {status: 500})
     }
 }

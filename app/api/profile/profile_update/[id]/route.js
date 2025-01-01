@@ -1,5 +1,5 @@
-import { connectToDB } from "../../../utils/database"
-import User from "../../models/user"
+import { connectToDB } from "../../../../utils/database"
+import User from "../../../models/user"
 
 export const PATCH = async (req, {params}) => {
   
@@ -16,7 +16,7 @@ await connectToDB()
   {_id: params.id},
   {profilePic:newImage, username:newName},
   {new:true, runValidators: true})
-  console.log(updateCurrentUser)
+ 
   if (!currentUser) {
     return new Response('User not found', {status: 404})
   }

@@ -20,12 +20,7 @@ export const GET = async (req,res) => {
     cursor = undefined
   }
 
-  let postsConfig = Post.find({$or :[ content]}).sort('-createdAt').populate(["creator", 
-    {path: 'comment',
-      populate: {
-        path: 'creator',
-      }
-    }])
+  let postsConfig = Post.find({$or :[ content]}).sort('-createdAt').populate(["creator"])
    postsConfig = postsConfig.skip(skipNum).limit(limit)
   
   const posts = await postsConfig

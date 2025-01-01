@@ -76,7 +76,7 @@ const Postform = ({handleSubmit,handleAddImage}) => {
    </div>
   
     <div className="btns">
-    <CldUploadWidget
+   {pathName === '/create-post'&&  <CldUploadWidget
                 options={{ sources: ["local", "camera", "google_drive"] }}
                 uploadPreset="ngb_cloudinary_app"
                 onSuccess={(results) => {
@@ -94,12 +94,14 @@ const Postform = ({handleSubmit,handleAddImage}) => {
          <span> Add Image </span>
         </div>
         )}}
-        </CldUploadWidget>
+        </CldUploadWidget> }
      
       <div  onClick={handleSubmit} disabled={isSubmitting.value} type="submit">
         <img src="../confirm.svg" alt="confirm" />
       <span>
- {pathName === '/create-post' && 
+      {pathName === '/edit-post' && 
+        `${!isSubmitting.value ? 'Edit Post' : 'Editing Post'}`}
+        {pathName === '/create-post' && 
         `${!isSubmitting.value ? 'Create Post' : 'Creating Post'}`}
       </span>
       
