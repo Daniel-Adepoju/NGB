@@ -9,11 +9,10 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useMutation,useQueryClient} from '@tanstack/react-query';
 import Burst from './Burst';
-import Comment from './Comment'
 import Image from 'next/image'
 import {useRef, useEffect} from 'react'
 import {io} from 'socket.io-client';
-import CommentList from '../components/CommentList'
+import Comment from '../components/Comment'
 
 dayjs.extend(relativeTime)
 
@@ -182,13 +181,8 @@ const handleModal = () => {
         </div>
       </section>
      {openComment.value &&
-     <section className='comment-container'
-     >{
-      post.comment.map((comment,index) => {
-    if(index === 0)   return <CommentList key={comment + 'index'} post={post}/>   
-     })
-     }
-  
+     <section className='comment-container'>
+     <Comment post={post}/>
       </section>}
     
       {pathName === '/profile/posts' && 

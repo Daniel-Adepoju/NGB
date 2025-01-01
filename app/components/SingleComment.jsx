@@ -80,17 +80,15 @@ const CommentList = ({post}) => {
       if(item.comments.comment) {
       return item?.comments?.comment.map((comment, index) => {
         return (
-          <>
   <div key={comment._id}
   onClick={() => getCommentsQuery.fetchNextPage()}>
    <Comment 
-   comment={comment}
    refVal={index === limit - 1 ? ref : null}
    />
-  </div>
+
   {index === limit - 1 && getCommentsQuery.isFetchingNextPage ? <div className="commentLoad"><Loading /></div> : ''}
-  </>
- )})
+  </div>
+)})
 }
     })
 

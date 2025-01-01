@@ -13,7 +13,7 @@ import useNextPageObserver from '../utils/useNextPageIntersection'
 const CardList = () => {
  const searchParams = useSearchParams()
  const searchValue = searchParams.get('search') || ''
-const limit = 5
+const limit = 12
 
  const getPosts = async(page) => {
     try {

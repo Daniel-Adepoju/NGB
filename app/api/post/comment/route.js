@@ -39,24 +39,27 @@ export const GET = async (req) => {
     let cursor = Number(page)
     try {
         await connectToDB()
+        const post = await Post.findById(postId).select('comment').populate('comment')
+        const commentLength = await post.comment.length 
+        const numOfPages = Math.ceil(commentLength/Number(limit))
+        if (cursor >= numOfPages) {
+          cursor = undefined
+        }
+       
         let postsConfig = await Post.findById(postId).select('comment').populate(
             {path:'comment',
-                options: {
+               
                 skip: skipNum,
                 limit: limit,
-                },
+               
                 populate: {
                     path: 'creator',
                     select: ['username', 'profilePic']
                 }
             }
         )
-  const commentLength = await Comment.countDocuments({_id: {$in : postsConfig.comment}})
-  const numOfPages = Math.ceil(commentLength/Number(limit))
-  if (cursor >= numOfPages) {
-    cursor = undefined
-  }
-  console.log(commentLength)
+
+  console.log({commentLength},page,{numOfPages})
   let comments = await postsConfig
         return new Response(JSON.stringify([{comments,cursor}]), {status: 200})
     } catch (err) {
