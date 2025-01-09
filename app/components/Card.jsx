@@ -7,9 +7,8 @@ import { useSignal, useSignals } from '@preact/signals-react/runtime';
 import { data } from '../utils/axiosUrl';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useMutation,useQueryClient} from '@tanstack/react-query';
+import { useMutation,useQueryClient,useQuery} from '@tanstack/react-query';
 import Burst from './Burst';
-import Image from 'next/image'
 import {useRef, useEffect} from 'react'
 import {io} from 'socket.io-client';
 import Comment from '../components/Comment'
@@ -20,18 +19,37 @@ dayjs.extend(relativeTime)
 
 const Card = ({refValue, post}) => {
   useSignals()
-const socket = io('http://localhost:3001')
+ const socket = io('http://localhost:3001')
  const queryClient = useQueryClient()
  const day = dayjs(post.createdAt).fromNow().toString()
  const {session, update} = useUser()
  const pathName = usePathname()
  const likeData = signal(post.like ? post.like : [])
- const currentUserLiked = likeData.value.includes(session?.user?.id)
  const displayBurst = useSignal(false)
  const openComment = useSignal(false)
  const showStats = useSignal(false)
  const router = useRouter()
  const dialogRef = useRef()
+ const contentRef = useRef()
+
+
+//Get single post rouutine
+const getPostToLike = async (postId) => {
+  try {
+const res = await data.value.get(`/api/post/${postId}`)
+const singlePost =  res
+return singlePost.data[0]
+  } catch (err) {
+      console.error(err)
+  }
+}
+const likeQuery = useQuery({
+  queryKey: ['post', {id:post._id}],
+  queryFn:() => getPostToLike(post._id),
+  // enabled:false,
+  initialData: post
+})
+const currentUserLiked = likeQuery?.data?.like?.includes(session?.user?.id)
 
  //Like Routine
 const likePost = async(editedLike) => {
@@ -48,16 +66,19 @@ const likePostMutation = useMutation({
   mutationFn: likePost,
   onSuccess: async (data) => {
     //invalidate query to display most recent change e.g like
-  await queryClient.invalidateQueries(['posts','userPosts'], {exact: true})
-   socket.emit('likePost', post.like)
+    // likeQuery.refetch()
+  await queryClient.invalidateQueries({queryKey:['post',{id:post._id}]}, {exact:true})
+   socket.emit('likePost', post._id)
   }
 })
 
 const handleLike = () => {
+
   likePostMutation.mutate({
     id: post._id,
     userId: session?.user?.id,
   })
+  //checked if liked
    if(!currentUserLiked) {
     displayBurst.value = true
     setTimeout(() => {
@@ -73,15 +94,21 @@ const handleLike = () => {
     })
    
     socket.on('likePost', (res) => {
-          queryClient.invalidateQueries(['posts'])
+      // likeQuery.refetch()
+        if(res === post._id) {
+          queryClient.invalidateQueries({queryKey:['post',{id:post._id}]},{exact:true})
+        }
         })
+      socket.on('createPost', () => {
+   queryClient.invalidateQueries(['posts'])     
+  })
    
     return () => { 
+      socket.off('createPost')
       socket.off('connect')
       socket.off('likePost')
     }
   },[])
-
 
   //Show Comment
   const handleCommentDisplay = () => {
@@ -110,6 +137,20 @@ const deleteMutation = useMutation({
 const handleModal = () => {
  dialogRef.current.showModal()
 }
+
+//Detecting Link
+ useEffect(() => {
+ const pattern = /\b(?:https?:\/\/|www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/gi;
+ const text = contentRef.current.textContent
+ const updateText = text.replace(pattern, (match) => {
+ const url = match.startsWith('http') ? match : `https://${match}`
+  return `<a
+  rel="noopener noreferrer"
+  target='_blank'
+  href=${url}>${match}</a>` 
+})
+ contentRef.current.innerHTML = updateText
+ },[])
 
   return (
     <div ref={refValue} className="card-container">
@@ -148,8 +189,8 @@ const handleModal = () => {
                   source: true,
                 }} />
              </div>}
-        <div className="content_con">
-       <div className="post-content">
+        <div  className="content_con">
+       <div ref={contentRef} className="post-content">
         {post.content}
          </div>
       <div className="post-btn">
@@ -158,7 +199,7 @@ const handleModal = () => {
       <div onClick={handleLike} id='like'>
         {currentUserLiked &&  <Burst show={displayBurst.value}/>}
           <span>
-           {likeData.value.length}  
+  {likeQuery.data?.like?.length} 
             </span>
            
         {currentUserLiked ? <img src="../liked.png"/> :
@@ -199,7 +240,7 @@ const handleModal = () => {
           
         </div>
         <div className="stat">
-          <span>{post.comment.length}</span>
+          <span>{post?.comment?.length}</span>
           <span> Comments</span>
         </div>
        

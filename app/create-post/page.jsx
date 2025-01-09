@@ -8,9 +8,11 @@ import {data} from '../utils/axiosUrl'
 import { useRouter } from 'next/navigation'
 import {useUser} from '../utils/user'
 import Link from 'next/link'
+import {io} from 'socket.io-client';
 
 const Page = () => {
   useSignals()
+  const socket = io('http://localhost:3001')
   const {session} = useUser()
   const router = useRouter()
  
@@ -31,10 +33,11 @@ const Page = () => {
   const createPostMutation = useMutation({
     mutationKey: 'createPost',
     mutationFn: createPost,
-    onSuccess: () => {
+    onSuccess: async () => {
       isSubmitting.value = false
       postDeets.content.value = ''
       postDeets.image.value = ''
+      socket.emit('createPost')
     }
   })
 

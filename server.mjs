@@ -25,6 +25,18 @@ const handle = app.getRequestHandler()
         socket.on('likePost', (res) => {
          socket.broadcast.emit('likePost', res)
         })
+
+        socket.on('commentPost', (res) => {
+         socket.broadcast.emit('commentPost', res)
+        })
+
+        socket.on('deletePost', (res) => {
+         socket.broadcast.emit('deletePost', res)
+        })
+
+        socket.on('createPost', (res) => {
+         socket.broadcast.emit('createPost', res)
+        })
     })
 
     

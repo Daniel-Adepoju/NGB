@@ -4,6 +4,7 @@ import { signal, effect} from "@preact/signals-react"
 import { useSignals } from "@preact/signals-react/runtime";
 import { CldUploadWidget, CldImage } from "next-cloudinary";
 import Loader from '../loading'
+import { useEffect } from "react";
 export const postDeets = {
     creator: signal(''),
     content: signal(''),
@@ -27,8 +28,12 @@ const Postform = ({handleSubmit,handleAddImage}) => {
       const pastedText = e.clipboardData.getData('text')
       e.preventDefault()
       const newText = postDeets.content.value + pastedText  
-      postDeets.content.value = newText.substring(0, 200)
+      postDeets.content.value = newText.substring(0, 300)
     }
+
+    useEffect(() => {
+      postDeets.content.value = ''
+    },[])
 
   return (
     <>

@@ -7,12 +7,13 @@ export const PATCH = async (req,res) => {
     const {id,userId} = await req.json()
     try {
         await connectToDB()
+         let updatePost
          const post = await Post.findOne({_id: id})
          const user = await User.findById(userId)
-         //unlike
+     //unlike
          if(post.like.includes(user._id)) {
         const removeLike = post.like.filter(likeId => likeId!=user._id)
-        const updatePost = await Post.findOneAndUpdate(
+         updatePost = await Post.findOneAndUpdate(
             {_id: id},
             {like: removeLike},
             {new:true, runValidators: true}

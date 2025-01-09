@@ -28,7 +28,7 @@ const limit = 12
 
 
  const postsQuery = useInfiniteQuery ({
-  queryKey: ['posts','infinite', {searchValue}],
+  queryKey: ['posts','infinite',{searchValue}],
   getNextPageParam: (prevData) => {
     return prevData.cursor + 1  || undefined
   },

@@ -10,11 +10,14 @@ import {useUser} from '../utils/user'
 import Loading from '../loading'
 import {comData} from '../utils/axiosUrl'
 import useNextPageObserver from '../utils/useNextPageIntersection';
+import {io} from 'socket.io-client';
+import { useEffect } from 'react';
 dayjs.extend(relativeTime)
 
 
 const Comment = ({post}) => {
     useSignals()
+    const socket = io('http://localhost:3001')
     const limit = 5
     const commentText = useSignal("")
     const {session} = useUser()
@@ -35,9 +38,10 @@ const Comment = ({post}) => {
     const createCommentMutation = useMutation({
     mutationKey: 'comments',
     mutationFn: createComment,
-    onSuccess: () => {
+    onSuccess: async () => {
       commentText.value = ""
-      queryClient.invalidateQueries({queryKey:['comments','infinite',{id: post._id}]}, {exact: true})
+     await queryClient.invalidateQueries({queryKey:['comments','infinite',{id: post._id}]}, {exact: true})
+     socket.emit('commentPost')
     },
     })
 
@@ -49,7 +53,16 @@ const Comment = ({post}) => {
         commentDate: new Date()
       })
     }
+    
+    useEffect(() => {
+     socket.on('commentPost', () => {
+      queryClient.invalidateQueries({queryKey:['comments','infinite',{id: post._id}]}, {exact: true})
+     })
 
+     return () => {
+      socket.off('commentPost')
+     }
+    },[])
   //Get Comments
     const getComments = async(page) => {
       try {
@@ -73,7 +86,7 @@ const Comment = ({post}) => {
     },
    })
    const refVal = useNextPageObserver(getCommentsQuery)
-
+    
 
      const listOfComments = getCommentsQuery?.data?.pages?.flatMap((item) => {
       if(item.comments.comment) {

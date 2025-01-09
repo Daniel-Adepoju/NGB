@@ -38,10 +38,10 @@ const Page = () => {
  const editPostMutation = useMutation({
   mutationKey: "userPost",
   mutationFn: editPost,
-  onSuccess: () => {
+  onSuccess: async () => {
     isSubmitting.value = false
     postDeets.content.value = ''
-    queryClient.invalidateQueries(['posts','userPosts'], {exact: true})
+   await queryClient.invalidateQueries(['posts','userPosts'], {exact: true})
   } 
 })
 
