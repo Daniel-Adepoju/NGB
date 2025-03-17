@@ -14,7 +14,6 @@ export const GET = async (req) => {
 
   try {
     await connectToDB()
-  
   const postsDeets = await Post.find()
   const numOfPages = Math.ceil(postsDeets.length / Number(limit))
   if (cursor >= numOfPages) {
