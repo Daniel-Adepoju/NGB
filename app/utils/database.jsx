@@ -16,7 +16,7 @@ try {
  isConnected = true
  console.log('MongoDB connected')
 } catch(err) {
- console.log(err)
+ console.log('Database Connection Error:',err)
 }
 
 }
