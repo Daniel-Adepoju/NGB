@@ -14,7 +14,6 @@ export const GET = async(req,{params}) => {
     try {
 await connectToDB()
 const post = await Post.find({creator:params.id}).populate("creator").skip(skipNum).limit(limit).sort('-createdAt')
-console.log('yeye')
 if(!post) {
     return new Response('You have no posts', {status: 404})
 }

@@ -5,11 +5,16 @@ import User from '../../models/user';
 
 export const PATCH = async (req,res) => {
     const {id,userId} = await req.json()
+    console.log({id,userId})
     try {
         await connectToDB()
          let updatePost
-         const post = await Post.findOne({_id: id})
+         const post = await Post.findById(id)
          const user = await User.findById(userId)
+     //check for user
+     if(!user) {
+        return new Response('You Have To Log In To Like Posts', {status: 404})
+     }
      //unlike
          if(post.like.includes(user._id)) {
         const removeLike = post.like.filter(likeId => likeId!=user._id)
@@ -32,7 +37,7 @@ export const PATCH = async (req,res) => {
     }
 }
     catch(err) {
-        console.log(err.message)
+        console.log({FROMAPI:err.message})
 return new Response(err, {status: 500})
     }
 }

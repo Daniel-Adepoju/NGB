@@ -59,7 +59,6 @@ export const GET = async (req) => {
             }
         )
 
-  console.log({commentLength},page,{numOfPages})
   let comments = await postsConfig
         return new Response(JSON.stringify([{comments,cursor}]), {status: 200})
     } catch (err) {

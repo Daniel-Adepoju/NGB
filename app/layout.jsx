@@ -5,6 +5,7 @@ import AuthProvider from './utils/sessionProvider'
 import Nav from './components/Nav'
 import User from './utils/user'
 import Main from './components/Main'
+import { ToastContainer } from 'react-toastify'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 export const metadata = {
   title: "NGB",
@@ -21,7 +22,13 @@ export default function RootLayout({children}) {
             <User>
             <Nav/>
             <Main>
-              <ReactQueryDevtools />
+              {/* <ReactQueryDevtools /> */}
+              <ToastContainer
+              position='top-center'
+              autoClose={2500}
+              newestOnTop={true}
+              theme='coloured'
+              />
           {children}
             </Main>
               

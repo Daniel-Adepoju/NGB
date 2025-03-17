@@ -9,7 +9,6 @@ import {data} from '../utils/axiosUrl'
 import Filter from '../components/Filter'
 import useNextPageObserver from '../utils/useNextPageIntersection'
 
-
 const CardList = () => {
  const searchParams = useSearchParams()
  const searchValue = searchParams.get('search') || ''
@@ -50,9 +49,9 @@ const limit = 12
         refValue={index === Number(limit - 1) ? 
           ref : null}
         />
-               </div>)
+               </div>) 
         }) 
-      })
+      }) 
     
       if(postsQuery.isError) {
         return <div>NETWORK ERROR{JSON.stringify(postsQuery.error)}</div>

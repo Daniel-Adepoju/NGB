@@ -1,5 +1,5 @@
 'use client'
-import { usePathname, useRouter } from 'next/navigation';
+import { router, usePathname, useRouter } from 'next/navigation';
 import {useUser} from '../utils/user';
 import { CldImage } from 'next-cloudinary';
 import { signal, computed,effect } from '@preact/signals-react';
@@ -12,10 +12,11 @@ import Burst from './Burst';
 import {useRef, useEffect} from 'react'
 import {io} from 'socket.io-client';
 import Comment from '../components/Comment'
-
+import {toast,ToastContainer} from  'react-toastify'
+import Loading from '../loading'
 dayjs.extend(relativeTime)
 
-// const socket = signal(io('localhost:3000'))
+
 
 const Card = ({refValue, post}) => {
   useSignals()
@@ -33,7 +34,7 @@ const Card = ({refValue, post}) => {
  const contentRef = useRef()
 
 
-//Get single post rouutine
+//Get single post for like rouutine
 const getPostToLike = async (postId) => {
   try {
 const res = await data.value.get(`/api/post/${postId}`)
@@ -51,12 +52,25 @@ const likeQuery = useQuery({
 })
 const currentUserLiked = likeQuery?.data?.like?.includes(session?.user?.id)
 
- //Like Routine
+ //Like Routine 
 const likePost = async(editedLike) => {
   try {
-  const res = await data.value.patch('/api/post/like', editedLike)
+  const res = await data.value.patch('/api/post/like', editedLike,{
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+    }
+  },)  
   return res
   } catch(err) {
+     if(err.status === 404) {
+      toast.error(err.response.data,{
+        style: {
+          backgroundColor: "#ff957d",
+          color: "#fff",
+        },
+      })
+    }
     console.error(err)
   }
 }
@@ -65,15 +79,12 @@ const likePostMutation = useMutation({
  mutationKey: "like",
   mutationFn: likePost,
   onSuccess: async (data) => {
-    //invalidate query to display most recent change e.g like
-    // likeQuery.refetch()
   await queryClient.invalidateQueries({queryKey:['post',{id:post._id}]}, {exact:true})
    socket.emit('likePost', post._id)
   }
 })
 
 const handleLike = () => {
-
   likePostMutation.mutate({
     id: post._id,
     userId: session?.user?.id,
@@ -83,7 +94,7 @@ const handleLike = () => {
     displayBurst.value = true
     setTimeout(() => {
         displayBurst.value = false
-        }, 3000)
+        }, 4000)
    }
   }
 
@@ -94,44 +105,47 @@ const handleLike = () => {
     })
    
     socket.on('likePost', (res) => {
-      // likeQuery.refetch()
         if(res === post._id) {
           queryClient.invalidateQueries({queryKey:['post',{id:post._id}]},{exact:true})
         }
         })
+
       socket.on('createPost', () => {
-   queryClient.invalidateQueries(['posts'])     
+   queryClient.invalidateQueries(['posts','userPosts'])     
   })
    
     return () => { 
-      socket.off('createPost')
-      socket.off('connect')
-      socket.off('likePost')
+      if(socket) {
+        socket.disconnect()
+      }
     }
-  },[])
+  },[socket])
 
   //Show Comment
   const handleCommentDisplay = () => {
-    openComment.value =!openComment.value
+    router.push(`/post/singlepost?postId=${post._id}`)
   }
   
 const handleGoToEdit = () => {
- console.log(post._id)
+
   router.push(`/edit-post?postId=${post._id}`)
 }
 
 //Delete Routine
 const handleDelete = async() => {
  const res = await data.value.delete(`/api/post/${post._id}`)
- if(!res.error) {
-   queryClient.invalidateQueries(['posts','userPosts'], {exact: true})
- }
+
 }
 const deleteMutation = useMutation({
   mutationKey: 'deletePost',
   mutationFn: handleDelete,
-  onSuccess: () => {
-    queryClient.invalidateQueries(['posts','userPosts'], {exact: true})
+  onSuccess: async () => {
+    await queryClient.invalidateQueries(['posts','userPosts'], {exact: true})
+    toast.success('Deleted Successfully',{
+      style: {
+        backgroundColor: "lightgreen",
+        color: "#fff",
+      },})
   }}
   )
 const handleModal = () => {
@@ -154,6 +168,7 @@ const handleModal = () => {
 
   return (
     <div ref={refValue} className="card-container">
+
         <section className="head">
                <div className="creator-pic">
                 <CldImage
@@ -205,6 +220,8 @@ const handleModal = () => {
         {currentUserLiked ? <img src="../liked.png"/> :
         <img src="../unliked.png"/> }
           </div> 
+
+
          <div id='comment' onClick={handleCommentDisplay}>
          <img src="../comment.svg" />
          </div> 
@@ -215,7 +232,7 @@ const handleModal = () => {
          <img src="../edit.svg" />
          </div> 
          <div onClick={() => handleModal()} id='delete'>
-         <img src="../delete.svg" />
+    {deleteMutation.isPending ? <Loading/> : <img src="../delete.svg" />}
          </div> 
       </>}
      </div>

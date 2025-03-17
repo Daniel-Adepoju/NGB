@@ -10,8 +10,6 @@ await connectToDB()
   const newImage = image || currentUser.profilePic
   const newName = name || currentUser.username
 
-  console.log(currentUser.username)
-
  const updateCurrentUser = await User.findOneAndUpdate(
   {_id: params.id},
   {profilePic:newImage, username:newName},

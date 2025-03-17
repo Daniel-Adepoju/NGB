@@ -12,6 +12,7 @@ import {comData} from '../utils/axiosUrl'
 import useNextPageObserver from '../utils/useNextPageIntersection';
 import {io} from 'socket.io-client';
 import { useEffect } from 'react';
+import Link from 'next/link';
 dayjs.extend(relativeTime)
 
 
@@ -27,7 +28,7 @@ const Comment = ({post}) => {
 
     const createComment = async (newComment) => {
       try {
-   const res = await data.value.post('api/post/comment', newComment)
+   const res = await comData.value.post('/api/post/comment', newComment)
     return res
       }
       catch (error) {
@@ -92,9 +93,9 @@ const Comment = ({post}) => {
       if(item.comments.comment) {
       return item?.comments?.comment.map((comment, index) => {
         return (
+
   <div key={comment._id} 
-  onClick={() => getCommentsQuery.fetchNextPage()}
-  className="comment"
+  className="comment-container"
   ref = {index === Number(limit - 1) ? refVal : null}
   >
   <div className="head">
@@ -114,10 +115,17 @@ const Comment = ({post}) => {
   <div className="body">
        <div className='comment-text'>
   <p>{comment.content}</p>
-  <p>{dayjs(comment.commentDate).fromNow().toString()}</p>
+  <p className='comDate'>{dayjs(comment.commentDate).fromNow().toString()}</p>
   </div>
   </div>
-  {index === limit - 1 && getCommentsQuery.isFetchingNextPage ? <div className="commentLoad"><Loading /> </div>: ''}
+  <div className="reply">
+  <Link className='reply' href={`/post/singlecomment?commentId=${comment._id}`}>
+    {comment?.subComments?.length > 0 ?
+    <span>View Replies</span> :
+    <span>Reply</span>}
+     <img alt='reply icon' src='../comment.svg'/>
+     </Link>
+  </div>
   </div>
  )})
 }
@@ -132,8 +140,14 @@ const Comment = ({post}) => {
 
   return (
     <>
- {!listOfComments || listOfComments.length < 1 ?  <div>No comments yet, be the first to comment</div> : listOfComments}
+ {!listOfComments || listOfComments.length < 1 ? 
+ <div>No comments yet, be the first to comment</div> :
+   listOfComments
+}
+ {getCommentsQuery.isFetchingNextPage ? <div className="commentLoad"><Loading /> </div>: ''}
+ 
   {session?.user &&  <div className="write-comment">
+    <div className='write-container'>
     <div className='user-pic'>
     <CldImage
     width="40"
@@ -145,14 +159,14 @@ const Comment = ({post}) => {
       source: true,
     }}/>
    </div>
-
-   <input type='text'
+   <textarea type='text'
    placeholder="Write a comment..."
    value={commentText.value}
    onChange={(e) => commentText.value = e.target.value}
    />
 
    <img onClick={handleCreateComment} className='send-comment' src='../send.svg' alt='send-comment'/>
+    </div>
     </div> }
   
    </>

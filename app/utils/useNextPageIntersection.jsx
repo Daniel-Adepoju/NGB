@@ -13,7 +13,7 @@ const useNextPageOserver = (queryName) => {
         observer.current = new IntersectionObserver((entries) => {
             if(entries[0].isIntersecting) {
           queryName.fetchNextPage()
-          console.log(entries[0].target.textContent)
+          // console.log(entries[0].target.textContent)
             }
             })
           

@@ -4,7 +4,7 @@ import Post from '../../models/post'
 export const GET = async (req, {params}) => {
     try {
       await connectToDB()
-      const post = await Post.findById(params.id)
+      const post = await Post.findById(params.id).populate('creator')
     
       if(!post) {
         return new Response('Post not found', {status: 404})
