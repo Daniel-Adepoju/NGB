@@ -1,8 +1,8 @@
 'use client'
 
-import { signal, effect} from "@preact/signals-react"
+import { signal} from "@preact/signals-react"
 import { useSignals } from "@preact/signals-react/runtime";
-import { useRouter, usePathname, redirect } from "next/navigation";
+import { useRouter, usePathname} from "next/navigation";
 import Link from "next/link";
 import {data} from '../utils/axiosUrl'
 import { useMutation } from "@tanstack/react-query";

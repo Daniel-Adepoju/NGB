@@ -4,7 +4,7 @@ import {SubComment} from '../../../models/post'
 
 
 //Get Specific Comment
-export const GET = async (req, {params}) => {
+export const GET = async ({params}) => {
     try {
         await connectToDB()
         const comment = await Comment.findById(params.id).populate([

@@ -1,7 +1,7 @@
 import { connectToDB } from "../../../utils/database"
 import Post from "../../models/post"
 
-export const POST = async (req,res) => {
+export const POST = async (req) => {
     const {creator,content,image} = await req.json()
      try {
      await connectToDB()

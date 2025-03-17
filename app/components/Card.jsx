@@ -1,8 +1,8 @@
 'use client'
-import { router, usePathname, useRouter } from 'next/navigation';
+import {usePathname, useRouter } from 'next/navigation';
 import {useUser} from '../utils/user';
 import { CldImage } from 'next-cloudinary';
-import { signal, computed,effect } from '@preact/signals-react';
+import { signal} from '@preact/signals-react';
 import { useSignal, useSignals } from '@preact/signals-react/runtime';
 import { data } from '../utils/axiosUrl';
 import dayjs from 'dayjs';
@@ -12,7 +12,7 @@ import Burst from './Burst';
 import {useRef, useEffect} from 'react'
 import {io} from 'socket.io-client';
 import Comment from '../components/Comment'
-import {toast,ToastContainer} from  'react-toastify'
+import {toast} from  'react-toastify'
 import Loading from '../loading'
 dayjs.extend(relativeTime)
 

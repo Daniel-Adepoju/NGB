@@ -1,7 +1,5 @@
 'use client'
 import Card from './Card'
-import { useSignals } from "@preact/signals-react/runtime"
-import { signal } from "@preact/signals-react"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { useSearchParams } from 'next/navigation'
 import Loader from '../loading'

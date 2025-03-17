@@ -1,5 +1,4 @@
 'use client'
-import { useEffect } from 'react';
 import Form from '../components/Form';
 import { useSignals } from '@preact/signals-react/runtime';
 import {formType, isSubmitting} from '../components/Form'

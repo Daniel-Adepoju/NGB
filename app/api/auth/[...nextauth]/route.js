@@ -31,7 +31,7 @@ async session ({session, token}) {
         email: {},
         password: {},
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         await connectToDB()
         const user = await User.findOne({email: credentials.email})
         const passwordCorrect = await compare(credentials?.password || '', user.password)

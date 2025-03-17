@@ -1,11 +1,9 @@
 'use client'
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import Comment from "../../components/Comment";
 import { useSignals, useSignal } from "@preact/signals-react/runtime";
 import { comData } from "../../utils/axiosUrl";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import Loading from '../../loading';
 import {useQuery,useQueryClient,useMutation} from "@tanstack/react-query";
 import { CldImage } from 'next-cloudinary';

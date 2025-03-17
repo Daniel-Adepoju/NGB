@@ -1,7 +1,6 @@
 'use client'
 import PostForm from '../components/Postform'
 import {postDeets, isSubmitting} from '../components/Postform'
-import { signal } from '@preact/signals-react'
 import { useSignals } from '@preact/signals-react/runtime'
 import { useMutation } from '@tanstack/react-query'
 import {data} from '../utils/axiosUrl'

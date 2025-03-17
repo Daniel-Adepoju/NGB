@@ -2,7 +2,7 @@ import { connectToDB } from "../../../utils/database"
 import User from "../../models/user"
 import {hash} from 'bcrypt'
 
-export const POST = async (req, res) => {
+export const POST = async (req) => {
 
   try {
     await connectToDB()

@@ -1,6 +1,6 @@
 'use client'
 import { usePathname } from "next/navigation"
-import { signal, effect} from "@preact/signals-react"
+import { signal} from "@preact/signals-react"
 import { useSignals } from "@preact/signals-react/runtime";
 import { CldUploadWidget, CldImage } from "next-cloudinary";
 import Loader from '../loading'
@@ -12,7 +12,7 @@ export const postDeets = {
   };
   export const isSubmitting  = signal(false)
   const imgLoading = signal(true)
-const Postform = ({handleSubmit,handleAddImage}) => {
+const Postform = ({handleSubmit}) => {
     useSignals()
     const pathName = usePathname()
     

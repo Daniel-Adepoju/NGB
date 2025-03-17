@@ -1,7 +1,7 @@
 import { connectToDB } from "../../utils/database"
 import Post from '../models/post'
 
-export const GET = async (req,res) => {
+export const GET = async (req) => {
   const {searchParams} = new URL(req.url)
   const page = searchParams.get('page') || 1
   const limit = searchParams.get('limit') || 10

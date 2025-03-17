@@ -3,7 +3,7 @@ import Post from '../../models/post';
 import User from '../../models/user';
 
 
-export const PATCH = async (req,res) => {
+export const PATCH = async (req) => {
     const {id,userId} = await req.json()
     console.log({id,userId})
     try {

@@ -1,7 +1,7 @@
 'use client'
 import { useSearchParams, useRouter} from 'next/navigation';
 import Postform, {postDeets} from '../components/Postform'
-import { signal, effect} from '@preact/signals-react';
+import {effect} from '@preact/signals-react';
 import {data} from '../utils/axiosUrl'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isSubmitting } from '../components/Postform';

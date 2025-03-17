@@ -1,11 +1,10 @@
 'use client'
 import Link from "next/link"
 
-import { useSignals , useSignal} from "@preact/signals-react/runtime";
-import { signal, effect } from '@preact/signals-react'
-import { useState, useEffect } from 'react';
+import { useSignals} from "@preact/signals-react/runtime";
+import { signal} from '@preact/signals-react'
 import { signOut } from 'next-auth/react';
-import { CldImage, CldOgImage } from 'next-cloudinary';
+import { CldImage} from 'next-cloudinary';
 import {useUser, useProviders } from '../utils/user'
 
 const currentImg = signal('')

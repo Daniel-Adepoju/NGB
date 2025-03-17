@@ -2,8 +2,6 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { CldImage } from "next-cloudinary"
-import { signal, effect } from "@preact/signals-react"
-import {data} from "../utils/axiosUrl"
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {useSignal,useSignals } from "@preact/signals-react/runtime"
 import {useUser} from '../utils/user'

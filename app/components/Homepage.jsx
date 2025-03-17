@@ -1,10 +1,8 @@
 'use client'
 
 import { useSignals } from "@preact/signals-react/runtime";
-import { signal, effect } from '@preact/signals-react'
 import { redirect, useSearchParams } from 'next/navigation';
 import Loading from '../loading';
-import {useUser,useProviders} from '../utils/user';
 import CardList from './CardList'
 
 export default function HomePage() {
