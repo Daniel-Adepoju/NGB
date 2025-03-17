@@ -1,7 +1,7 @@
 import {connectToDB} from '../../../utils/database'
 import Post from '../../models/post'
 
-export const GET = async ({params}) => {
+export const GET = async (req, {params}) => {
     try {
       await connectToDB()
       const post = await Post.findById(params.id).populate('creator')
@@ -31,7 +31,7 @@ export const PATCH = async(req,{params}) => {
   }  
 }
 
-export const DELETE = async ({params}) => {
+export const DELETE = async (req, {params}) => {
    try {
     await connectToDB()
     const deletePost = await Post.findByIdAndDelete(params.id)
