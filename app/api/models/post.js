@@ -1,4 +1,5 @@
 import {Schema,model,models} from "mongoose";
+import User from "./user";
 
 const SubCommentSchema = new Schema({
   content: {
@@ -7,7 +8,7 @@ const SubCommentSchema = new Schema({
 },
 creator: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: User.modelName,
     required: true,
 },
 commentDate: {
@@ -22,7 +23,7 @@ const CommentSchema = new Schema({
   },
   creator: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: User.modelName,
       required: true,
   },
   commentDate: {
@@ -39,7 +40,7 @@ const CommentSchema = new Schema({
 const PostSchema = new Schema({
   creator: {
     type: Schema.Types.ObjectId,
-    ref: 'User', 
+    ref: User.modelName, 
     required: true,
   },
  content: {

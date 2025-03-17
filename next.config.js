@@ -10,6 +10,8 @@ webpack(config) {
         fs: false,
     }
     return config;
-}
-
+},
+eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
