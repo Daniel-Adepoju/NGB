@@ -2,7 +2,7 @@
 import Card from '../../components/Card';
 import { useSignals } from "@preact/signals-react/runtime"
 import { signal } from "@preact/signals-react"
-import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query"
 import {data} from '../../utils/axiosUrl'
 import {useUser} from '../../utils/user';
 import { useCallback,useRef } from 'react'
@@ -18,8 +18,7 @@ const Page = () => {
   const {session} = useUser()
   const searchValue = searchParams.get('search') || ''
   const userId = searchParams.get('id')
-  const queryClient = useQueryClient()
-  const dialogRef = useRef()
+
   //GET
   const getPosts = async(page) => {
     try {
@@ -28,6 +27,7 @@ const Page = () => {
      return postData.data[0]
      }
      catch(err) {
+      console.log(err)
   }
  }
 
@@ -52,7 +52,7 @@ const observerCallback = useCallback(node => {
  if(node) return observer.current.observe(node)
 },[postsQuery.isLoading, postsQuery.hasNextPage])
 
-const mappedPosts = postsQuery?.data?.pages.flatMap((item,index) => {
+const mappedPosts = postsQuery?.data?.pages.flatMap((item) => {
   return item.post.flatMap((post,index) => {
     return (
       <div key={post._id}>
@@ -71,7 +71,7 @@ const mappedPosts = postsQuery?.data?.pages.flatMap((item,index) => {
 
 if(mappedPosts?.length === 0) {
   return (
-    <div className="userPostInfo"> You've not made a post yet</div>
+    <div className="userPostInfo"> {`You've not made a post yet`}</div>
   )
 }
 

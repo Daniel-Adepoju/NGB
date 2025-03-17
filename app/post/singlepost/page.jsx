@@ -1,12 +1,11 @@
 'use client'
 import SingleCard from '../../components/SingleCard'
 import { useSearchParams } from "next/navigation"
-import { effect, useSignal} from '@preact/signals-react'
+import {useSignal} from '@preact/signals-react'
 import {data} from '../../utils/axiosUrl'
-import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import Loading from '../../loading'
-const page = () => {
+const SinglePost = () => {
     const searchParams = useSearchParams()
     const postId = searchParams.get('postId')
     const singlePost = useSignal()
@@ -37,4 +36,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SinglePost

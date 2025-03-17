@@ -8,9 +8,9 @@ export const GET = async(req,{params}) => {
     const search = searchParams.get('search') || ''
     const skipNum = Number((page- 1) * limit)
     let cursor = Number(page)
-    let content = {
-      content:{ $regex: search, $options: 'i'}
-    }
+    // let content = {
+    //   content:{ $regex: search, $options: 'i'}
+    // }
     try {
 await connectToDB()
 const post = await Post.find({creator:params.id}).populate("creator").skip(skipNum).limit(limit).sort('-createdAt')

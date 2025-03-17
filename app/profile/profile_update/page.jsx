@@ -1,7 +1,7 @@
 "use client"
-import { redirect, useSearchParams, useRouter } from "next/navigation"
+import {useSearchParams, useRouter } from "next/navigation"
 import { useUser, useProviders } from "../../utils/user"
-import { CldImage, CldOgImage, CldUploadWidget } from "next-cloudinary"
+import { CldImage, CldUploadWidget } from "next-cloudinary"
 import { signal } from "@preact/signals-react"
 import { useSignals } from "@preact/signals-react/runtime"
 import { data } from "../../utils/axiosUrl"
@@ -14,9 +14,7 @@ const Page = () => {
   useSignals()
   const paramsDetails = useSearchParams()
   const userID = paramsDetails.get("id")
-  const paramName = paramsDetails.get("name")
   const { session, update } = useUser()
-  const providers = useProviders()
   const router = useRouter()
 
 
@@ -96,12 +94,7 @@ const Page = () => {
                 }}
               </CldUploadWidget>
             )}
-            {session?.user && !session?.user?.profilePic && (
-              <img
-                src="../icons8-user-100 (1).png"
-                alt="profile_img"
-              />
-            )}
+
             {session?.user && session?.user?.profilePic && (
               <CldImage
                 width="100"

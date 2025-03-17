@@ -6,7 +6,7 @@ import { useRouter, usePathname} from "next/navigation";
 import Link from "next/link";
 import {data} from '../utils/axiosUrl'
 import { useMutation } from "@tanstack/react-query";
-import { signIn, signOut } from "next-auth/react";
+import { signIn} from "next-auth/react";
 
 export const formType = signal('')
 export const isSubmitting  = signal(false)

@@ -23,7 +23,7 @@ const Card = ({refValue, post}) => {
  const socket = io('http://localhost:3001')
  const queryClient = useQueryClient()
  const day = dayjs(post.createdAt).fromNow().toString()
- const {session, update} = useUser()
+ const {session} = useUser()
  const pathName = usePathname()
  const likeData = signal(post.like ? post.like : [])
  const displayBurst = useSignal(false)
@@ -78,7 +78,7 @@ const likePost = async(editedLike) => {
 const likePostMutation = useMutation({
  mutationKey: "like",
   mutationFn: likePost,
-  onSuccess: async (data) => {
+  onSuccess: async () => {
   await queryClient.invalidateQueries({queryKey:['post',{id:post._id}]}, {exact:true})
    socket.emit('likePost', post._id)
   }
@@ -134,7 +134,7 @@ const handleGoToEdit = () => {
 //Delete Routine
 const handleDelete = async() => {
  const res = await data.value.delete(`/api/post/${post._id}`)
-
+  return res
 }
 const deleteMutation = useMutation({
   mutationKey: 'deletePost',

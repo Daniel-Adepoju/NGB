@@ -7,7 +7,6 @@ import { signOut } from 'next-auth/react';
 import { CldImage} from 'next-cloudinary';
 import {useUser, useProviders } from '../utils/user'
 
-const currentImg = signal('')
  export const isMenuOpen = signal(false)
 
 export const toggleMenu = () => {
@@ -21,10 +20,7 @@ const falsifyMenu = () => {
 const Nav = () => {
     useSignals()
   const {session} = useUser()
-  const providers = useProviders()
-
  
-
   return (
     <nav>
        <Link href='/' >

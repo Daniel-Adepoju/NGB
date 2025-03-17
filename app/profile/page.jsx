@@ -2,7 +2,7 @@
 import { CldImage } from "next-cloudinary"
 import Link from "next/link"
 import { useUser } from "../utils/user"
-const page = () => {
+const Profile = () => {
     const { session } = useUser()
 
 
@@ -67,4 +67,4 @@ else {
 }
 }
 
-export default page
+export default Profile

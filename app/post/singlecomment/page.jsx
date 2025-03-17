@@ -96,7 +96,7 @@ await queryClient.invalidateQueries({
 
 
   <div className="sub-comment">
-    {comment.value.subComments?.map((subComment, index) => (
+    {comment.value.subComments?.map((subComment) => (
   <div className="comment-container" key={subComment._id}>
   <div className="head">
   <div className='user-pic'>
