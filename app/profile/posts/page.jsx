@@ -2,7 +2,7 @@
 import Card from '../../components/Card';
 import { useSignals } from "@preact/signals-react/runtime"
 import { signal } from "@preact/signals-react"
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query"
+import { useInfiniteQuery} from "@tanstack/react-query"
 import {data} from '../../utils/axiosUrl'
 import {useUser} from '../../utils/user';
 import { useCallback,useRef } from 'react'

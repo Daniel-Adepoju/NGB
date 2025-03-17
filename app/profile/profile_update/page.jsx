@@ -1,6 +1,6 @@
 "use client"
 import {useSearchParams, useRouter } from "next/navigation"
-import { useUser, useProviders } from "../../utils/user"
+import { useUser} from "../../utils/user"
 import { CldImage, CldUploadWidget } from "next-cloudinary"
 import { signal } from "@preact/signals-react"
 import { useSignals } from "@preact/signals-react/runtime"

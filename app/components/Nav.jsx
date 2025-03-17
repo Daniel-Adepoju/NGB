@@ -5,7 +5,7 @@ import { useSignals} from "@preact/signals-react/runtime";
 import { signal} from '@preact/signals-react'
 import { signOut } from 'next-auth/react';
 import { CldImage} from 'next-cloudinary';
-import {useUser, useProviders } from '../utils/user'
+import {useUser} from '../utils/user'
 
  export const isMenuOpen = signal(false)
 

@@ -5,7 +5,7 @@ export const GET = async(req,{params}) => {
     const {searchParams} = new URL(req.url)
     const page = searchParams.get('page') || 1
     const limit = searchParams.get('limit') || 10
-    const search = searchParams.get('search') || ''
+    // const search = searchParams.get('search') || ''
     const skipNum = Number((page- 1) * limit)
     let cursor = Number(page)
     // let content = {
