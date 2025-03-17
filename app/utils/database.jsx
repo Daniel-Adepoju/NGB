@@ -1,5 +1,5 @@
 
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 let isConnected = false
 export const connectToDB = async () => {
@@ -16,7 +16,7 @@ try {
  isConnected = true
  console.log('MongoDB connected')
 } catch(err) {
- console.log('Database Connection Error:',err)
+ console.log(err)
 }
 
 }
